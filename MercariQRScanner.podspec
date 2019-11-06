@@ -1,9 +1,9 @@
-# QRScanner.podspec
+# MercariQRScanner.podspec
 
 Pod::Spec.new do |s|
-  s.name         = "QRScanner"
+  s.name         = "MercariQRScanner"
   s.version      = "1.0"
-  s.summary      = "A QR Code scanner framework for iOS. Written in Swift."
+  s.summary      = "A simple QR Code scanner framework for iOS. Provides a similar scan effect to ios13+. Written in Swift."
   s.homepage     = "https://github.com/mercari/QRScanner"
   s.license      = "MIT"
   s.author       = { "hitsubunnu" => "idhitsu@gmail.com" }

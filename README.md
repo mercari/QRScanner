@@ -1,15 +1,15 @@
 # QRScanner
-A QR Code scanner framework for iOS. Written in Swift.
+A simple QR Code scanner framework for iOS. Provides a similar scan effect to ios13+. Written in Swift.
 
 |iOS 13.0+|QRScanner iOS 10.0+|
 |-|-|
-|<img src="./images/ios13qr.gif" width="350">|<img src="./images/qr.gif" width="350">|
+|<img src="https://raw.githubusercontent.com/mercari/QRScanner/master/images/ios13qr.gif" width="350">|<img src="https://raw.githubusercontent.com/mercari/QRScanner/master/images/qr.gif" width="350">|
 
 "QR Code" is a registered trademark of DENSO WAVE INCORPORATED
 
 ## Feature
 - Similar to iOS 13.0+ design
-- Simple usage  <a href="https://github.com/kouzoh/QRScanner/blob/master/QRScannerSample/QRScannerSample/ViewController.swift" target="_blank">Sample</a>
+- Simple usage  <a href="https://github.com/mercari/QRScanner/blob/master/QRScannerSample/QRScannerSample/ViewController.swift" target="_blank">Sample</a>
 - Support for iOS 10.0+
 
 ## Development Requirements
@@ -22,10 +22,20 @@ A QR Code scanner framework for iOS. Written in Swift.
 
 ### The Pod Way
 
-Simply add the following line to your <code>Podfile</code>:
+- Simply add the following line to your <code>Podfile</code>
+```
+  platform :ios, '10.0'
+  pod 'MercariQRScanner'
+```
 
-    platform :ios, '10.0'
-    pod 'QRScanner'
+- Run command
+```
+  pod install
+```
+- Write Import statement on your source file
+```
+  Import MercariQRScanner
+```
 
 ### The Carthage Way
 
@@ -59,11 +69,16 @@ Import QRScanner
 
 ## Usage
 
-### See [QRScannerSample](https://github.com/kouzoh/QRScanner/tree/master/QRScannerSample)
+See [QRScannerSample](https://github.com/mercari/QRScanner/tree/master/QRScannerSample)
+
+### Add `Privacy - Camera Usage Description` to Info.plist file
+
+<img src="https://raw.githubusercontent.com/mercari/QRScanner/master/images/privacy_camera.png" width="500">
 
 ### Source Code
 
 ```
+// If use the Pod way, import MercariQRScanner
 import QRScanner
 
 final class ViewController: UIViewController {
