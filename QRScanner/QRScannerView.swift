@@ -201,7 +201,7 @@ public class QRScannerView: UIView {
         previewLayer?.removeFromSuperlayer()
     }
 
-    private func moveImageViews(qrCode: String, corners: [CGPoint]) {
+    private func moveImageViews(corners: [CGPoint]) {
         let path = UIBezierPath()
         path.move(to: corners[0])
         corners[1..<corners.count].forEach() {
@@ -268,7 +268,8 @@ extension QRScannerView: AVCaptureMetadataOutputObjectsDelegate {
             videoDataOutputEnable = true
 
             DispatchQueue.main.async { [weak self] in
-                self?.moveImageViews(qrCode: stringValue, corners: readableObject.corners)
+                self?.moveImageViews(corners: readableObject.corners)
+                self?.delegate?.success(stringValue)
             }
         }
     }
