@@ -201,7 +201,9 @@ public class QRScannerView: UIView {
         previewLayer?.removeFromSuperlayer()
     }
 
-    private func moveImageViews(corners: [CGPoint]) {
+    private func moveImageViews(qrCode: String, corners: [CGPoint]) {
+        assert(Thread.isMainThread)
+        
         let path = UIBezierPath()
         path.move(to: corners[0])
         corners[1..<corners.count].forEach() {
@@ -228,7 +230,7 @@ public class QRScannerView: UIView {
         }
         maxSide += focusImagePadding * 2
 
-        UIView.animate(withDuration: animationDuration) { [weak self] in
+        UIView.animate(withDuration: animationDuration, animations: { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.focusImageView.frame = path.bounds
             let center = strongSelf.focusImageView.center
@@ -238,7 +240,9 @@ public class QRScannerView: UIView {
 
             strongSelf.qrCodeImageView.frame = path.bounds
             strongSelf.qrCodeImageView.center = center
-        }
+            }, completion: { [weak self] _ in
+                self?.delegate?.success(qrCode)
+        })
     }
 
     private func displayQRCode(_ image: UIImage) {
@@ -268,8 +272,7 @@ extension QRScannerView: AVCaptureMetadataOutputObjectsDelegate {
             videoDataOutputEnable = true
 
             DispatchQueue.main.async { [weak self] in
-                self?.moveImageViews(corners: readableObject.corners)
-                self?.delegate?.success(stringValue)
+                self?.moveImageViews(qrCode: stringValue, corners: readableObject.corners)
             }
         }
     }
