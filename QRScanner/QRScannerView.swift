@@ -12,13 +12,13 @@ import AVFoundation
 public protocol QRScannerViewDelegate: AnyObject {
     func failure(_ error: QRScannerError)
     func success(_ code: String)
+    func didChangeTorchActive(isOn: Bool)
 }
 
 @IBDesignable
 public class QRScannerView: UIView {
 
-    // MARK: - Initializer
-
+    // MARK: - Public Properties
     @IBInspectable
     public var focusImage: UIImage?
 
@@ -27,6 +27,8 @@ public class QRScannerView: UIView {
 
     @IBInspectable
     public var animationDuration: Double = 0.5
+
+    public var isTorchActive: Bool = false
 
     // MARK: - Public
 
@@ -75,6 +77,16 @@ public class QRScannerView: UIView {
         metadataOutputEnable = true
     }
 
+    public func setTorchActive(isOn: Bool) {
+        guard let videoDevice = AVCaptureDevice.default(for: .video),
+            videoDevice.hasTorch, videoDevice.isTorchAvailable else {
+                return
+        }
+        try? videoDevice.lockForConfiguration()
+        videoDevice.torchMode = isOn ? .on : .off
+        videoDevice.unlockForConfiguration()
+    }
+
     deinit {
         focusImageView.removeFromSuperview()
         qrCodeImageView.removeFromSuperview()
@@ -85,6 +97,9 @@ public class QRScannerView: UIView {
             videoDataQueue.async { [weak self] in
                 self?.session.stopRunning()
             }
+        }
+        observers.forEach {
+            $0.invalidate()
         }
     }
 
@@ -101,6 +116,7 @@ public class QRScannerView: UIView {
     private var videoDataOutput = AVCaptureVideoDataOutput()
     private var metadataOutputEnable = false
     private var videoDataOutputEnable = false
+    private var observers = [NSKeyValueObservation]()
 
     private enum AuthorizationStatus {
         case authorized, notDetermined, restrictedOrDenied
@@ -166,6 +182,14 @@ public class QRScannerView: UIView {
 
         session.commitConfiguration()
 
+        // torch observation
+        if videoDevice.hasTorch {
+            observers.append(videoDevice.observe(\.isTorchActive, options: .new) { [weak self] _, change in
+                self?.didChangeTorchActive(isOn: change.newValue ?? false)
+            })
+        }
+
+        // start running
         if authorizationStatus() == .notDetermined {
             videoDataOutputEnable = false
             metadataOutputEnable = true
@@ -257,6 +281,13 @@ public class QRScannerView: UIView {
 
     private func success(_ code: String) {
         delegate?.success(code)
+    }
+
+    private func didChangeTorchActive(isOn: Bool) {
+        isTorchActive = isOn
+        DispatchQueue.main.async { [weak self] in
+            self?.delegate?.didChangeTorchActive(isOn: isOn)
+        }
     }
 }
 

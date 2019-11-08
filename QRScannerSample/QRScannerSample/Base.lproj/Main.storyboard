@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -22,34 +20,64 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Af9-Pk-bJL">
-                                <rect key="frame" x="164.5" y="750" width="85" height="32"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                                <state key="normal" title="Retry Scan">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="tapRetryScanButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uyX-Du-xE3"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="QGC-8E-dcL">
+                                <rect key="frame" x="40" y="742" width="334" height="80"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="79y-mq-bOP" customClass="FlashButton" customModule="QRScannerSample" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="80" id="A8o-8g-CqC"/>
+                                            <constraint firstAttribute="height" constant="80" id="xOe-hR-q49"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="tapFlashButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bCy-cw-2Xc"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Af9-Pk-bJL">
+                                        <rect key="frame" x="214" y="0.0" width="120" height="80"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="120" id="SMH-oL-0c7"/>
+                                            <constraint firstAttribute="height" constant="80" id="UNZ-gI-YkP"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                        <state key="normal" title="Retry Scan">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="tapRetryScanButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uyX-Du-xE3"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="79y-mq-bOP" firstAttribute="top" secondItem="QGC-8E-dcL" secondAttribute="top" id="Wal-tc-Dvz"/>
+                                    <constraint firstItem="Af9-Pk-bJL" firstAttribute="top" secondItem="QGC-8E-dcL" secondAttribute="top" id="dss-ce-b5V"/>
+                                    <constraint firstAttribute="trailing" secondItem="Af9-Pk-bJL" secondAttribute="trailing" id="qIs-F5-Q6h"/>
+                                    <constraint firstAttribute="height" constant="80" id="rxa-PA-Api"/>
+                                    <constraint firstItem="79y-mq-bOP" firstAttribute="leading" secondItem="QGC-8E-dcL" secondAttribute="leading" id="wzh-2r-Kc0"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="QGC-8E-dcL" secondAttribute="bottom" constant="40" id="0G3-dQ-eAr"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="QGC-8E-dcL" secondAttribute="trailing" constant="40" id="2me-qk-8PI"/>
                             <constraint firstAttribute="bottom" secondItem="Lq8-gV-FhD" secondAttribute="bottom" id="7AT-pY-FAX"/>
                             <constraint firstItem="Lq8-gV-FhD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Gbl-z4-qYV"/>
                             <constraint firstItem="Lq8-gV-FhD" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="HR4-pr-jLC"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Lq8-gV-FhD" secondAttribute="trailing" id="SJH-wX-Sqx"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Af9-Pk-bJL" secondAttribute="bottom" constant="80" id="YIu-vs-dvY"/>
-                            <constraint firstItem="Af9-Pk-bJL" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="vPH-H8-hVZ"/>
+                            <constraint firstItem="QGC-8E-dcL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="U8I-Cw-xsl"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="flashButton" destination="79y-mq-bOP" id="jxg-iE-HM6"/>
                         <outlet property="qrScannerView" destination="Lq8-gV-FhD" id="SFM-Eh-qaT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="137.68115942028987" y="130.58035714285714"/>
         </scene>
     </scenes>
 </document>

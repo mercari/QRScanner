@@ -16,6 +16,7 @@ final class ViewController: UIViewController {
             qrScannerView.startRunning()
         }
     }
+    @IBOutlet var flashButton: FlashButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,10 @@ final class ViewController: UIViewController {
 
     @IBAction func tapRetryScanButton(_ sender: UIButton) {
         qrScannerView.rescan()
+    }
+
+    @IBAction func tapFlashButton(_ sender: UIButton) {
+        qrScannerView.setTorchActive(isOn: !sender.isSelected)
     }
 }
 
@@ -33,5 +38,9 @@ extension ViewController: QRScannerViewDelegate {
 
     func success(_ code: String) {
         print(code)
+    }
+
+    func didChangeTorchActive(isOn: Bool) {
+        flashButton.isSelected = isOn
     }
 }
