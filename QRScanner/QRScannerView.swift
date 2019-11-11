@@ -29,6 +29,7 @@ public class QRScannerView: UIView {
     public var animationDuration: Double = 0.5
 
     public var isTorchActive: Bool = false
+    public var qrCodeImage: UIImage?
 
     // MARK: - Public
 
@@ -73,6 +74,7 @@ public class QRScannerView: UIView {
         focusImageView.removeFromSuperview()
         qrCodeImageView.removeFromSuperview()
         setupImageViews()
+        qrCodeImage = nil
         videoDataOutputEnable = false
         metadataOutputEnable = true
     }
@@ -268,14 +270,9 @@ public class QRScannerView: UIView {
             strongSelf.qrCodeImageView.frame = path.bounds
             strongSelf.qrCodeImageView.center = center
             }, completion: { [weak self] _ in
+                self?.qrCodeImageView.image = self?.qrCodeImage
                 self?.delegate?.success(qrCode)
         })
-    }
-
-    private func displayQRCode(_ image: UIImage) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration) { [weak self] in
-            self?.qrCodeImageView.image = image
-        }
     }
 
     private func failure(_ error: QRScannerError) {
@@ -321,7 +318,7 @@ extension QRScannerView: AVCaptureVideoDataOutputSampleBufferDelegate {
         guard videoDataOutputEnable else { return }
         guard let qrCodeImage = getImageFromSampleBuffer(sampleBuffer: sampleBuffer) else { return }
 
-        displayQRCode(qrCodeImage)
+        self.qrCodeImage = qrCodeImage
         videoDataOutputEnable = false
     }
 
