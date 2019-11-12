@@ -28,9 +28,6 @@ public class QRScannerView: UIView {
     @IBInspectable
     public var animationDuration: Double = 0.5
 
-    public var isTorchActive: Bool = false
-    public var qrCodeImage: UIImage?
-
     // MARK: - Public
 
     public func configure(delegate: QRScannerViewDelegate, focusImage: UIImage? = nil, focusImagePadding: CGFloat? = nil, animationDuration: Double? = nil) {
@@ -122,6 +119,7 @@ public class QRScannerView: UIView {
     private var metadataOutputEnable = false
     private var videoDataOutputEnable = false
     private var observers = [NSKeyValueObservation]()
+    private var qrCodeImage: UIImage?
 
     private enum AuthorizationStatus {
         case authorized, notDetermined, restrictedOrDenied
@@ -285,7 +283,6 @@ public class QRScannerView: UIView {
     }
 
     private func didChangeTorchActive(isOn: Bool) {
-        isTorchActive = isOn
         DispatchQueue.main.async { [weak self] in
             self?.delegate?.didChangeTorchActive(isOn: isOn)
         }
