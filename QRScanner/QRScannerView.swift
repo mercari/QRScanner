@@ -270,8 +270,9 @@ public class QRScannerView: UIView {
             strongSelf.qrCodeImageView.frame = path.bounds
             strongSelf.qrCodeImageView.center = center
             }, completion: { [weak self] _ in
-                self?.qrCodeImageView.image = self?.qrCodeImage
-                self?.delegate?.success(qrCode)
+                guard let strongSelf = self else { return }
+                strongSelf.qrCodeImageView.image = strongSelf.qrCodeImage
+                strongSelf.success(qrCode)
         })
     }
 
