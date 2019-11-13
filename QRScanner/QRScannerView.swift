@@ -77,15 +77,15 @@ public class QRScannerView: UIView {
     }
 
     public func setTorchActive(isOn: Bool) {
+        assert(Thread.isMainThread)
+        
         guard let videoDevice = AVCaptureDevice.default(for: .video),
             videoDevice.hasTorch, videoDevice.isTorchAvailable else {
                 return
         }
-        DispatchQueue.main.async {
-            try? videoDevice.lockForConfiguration()
-            videoDevice.torchMode = isOn ? .on : .off
-            videoDevice.unlockForConfiguration()
-        }
+        try? videoDevice.lockForConfiguration()
+        videoDevice.torchMode = isOn ? .on : .off
+        videoDevice.unlockForConfiguration()
     }
 
     deinit {
@@ -297,12 +297,13 @@ extension QRScannerView: AVCaptureMetadataOutputObjectsDelegate {
         if let metadataObject = metadataObjects.first {
             guard let readableObject = previewLayer?.transformedMetadataObject(for: metadataObject) as? AVMetadataMachineReadableCodeObject, metadataObject.type == .qr else { return }
             guard let stringValue = readableObject.stringValue else { return }
-            setTorchActive(isOn: false)
             metadataOutputEnable = false
             videoDataOutputEnable = true
 
             DispatchQueue.main.async { [weak self] in
-                self?.moveImageViews(qrCode: stringValue, corners: readableObject.corners)
+                guard let strongSelf = self else { return }
+                strongSelf.setTorchActive(isOn: false)
+                strongSelf.moveImageViews(qrCode: stringValue, corners: readableObject.corners)
             }
         }
     }
