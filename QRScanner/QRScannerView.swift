@@ -100,9 +100,7 @@ public class QRScannerView: UIView {
                 self?.session.stopRunning()
             }
         }
-        observers.forEach {
-            $0.invalidate()
-        }
+        torchActiveObservation = nil
     }
 
     // MARK: - Private
@@ -118,7 +116,7 @@ public class QRScannerView: UIView {
     private var videoDataOutput = AVCaptureVideoDataOutput()
     private var metadataOutputEnable = false
     private var videoDataOutputEnable = false
-    private var observers = [NSKeyValueObservation]()
+    private var torchActiveObservation: NSKeyValueObservation?
     private var qrCodeImage: UIImage?
 
     private enum AuthorizationStatus {
@@ -187,9 +185,9 @@ public class QRScannerView: UIView {
 
         // torch observation
         if videoDevice.hasTorch {
-            observers.append(videoDevice.observe(\.isTorchActive, options: .new) { [weak self] _, change in
+            torchActiveObservation = videoDevice.observe(\.isTorchActive, options: .new) { [weak self] _, change in
                 self?.didChangeTorchActive(isOn: change.newValue ?? false)
-            })
+            }
         }
 
         // start running
@@ -283,9 +281,7 @@ public class QRScannerView: UIView {
     }
 
     private func didChangeTorchActive(isOn: Bool) {
-        DispatchQueue.main.async { [weak self] in
-            self?.delegate?.didChangeTorchActive(isOn: isOn)
-        }
+        delegate?.didChangeTorchActive(isOn: isOn)
     }
 }
 
