@@ -12,13 +12,13 @@ import AVFoundation
 public protocol QRScannerViewDelegate: AnyObject {
     func failure(_ error: QRScannerError)
     func success(_ code: String)
+    func didChangeTorchActive(isOn: Bool)
 }
 
 @IBDesignable
 public class QRScannerView: UIView {
 
-    // MARK: - Initializer
-
+    // MARK: - Public Properties
     @IBInspectable
     public var focusImage: UIImage?
 
@@ -71,11 +71,25 @@ public class QRScannerView: UIView {
         focusImageView.removeFromSuperview()
         qrCodeImageView.removeFromSuperview()
         setupImageViews()
+        qrCodeImage = nil
         videoDataOutputEnable = false
         metadataOutputEnable = true
     }
 
+    public func setTorchActive(isOn: Bool) {
+        assert(Thread.isMainThread)
+        
+        guard let videoDevice = AVCaptureDevice.default(for: .video),
+            videoDevice.hasTorch, videoDevice.isTorchAvailable else {
+                return
+        }
+        try? videoDevice.lockForConfiguration()
+        videoDevice.torchMode = isOn ? .on : .off
+        videoDevice.unlockForConfiguration()
+    }
+
     deinit {
+        setTorchActive(isOn: false)
         focusImageView.removeFromSuperview()
         qrCodeImageView.removeFromSuperview()
         session.inputs.forEach { session.removeInput($0) }
@@ -86,6 +100,7 @@ public class QRScannerView: UIView {
                 self?.session.stopRunning()
             }
         }
+        torchActiveObservation = nil
     }
 
     // MARK: - Private
@@ -101,6 +116,8 @@ public class QRScannerView: UIView {
     private var videoDataOutput = AVCaptureVideoDataOutput()
     private var metadataOutputEnable = false
     private var videoDataOutputEnable = false
+    private var torchActiveObservation: NSKeyValueObservation?
+    private var qrCodeImage: UIImage?
 
     private enum AuthorizationStatus {
         case authorized, notDetermined, restrictedOrDenied
@@ -166,6 +183,14 @@ public class QRScannerView: UIView {
 
         session.commitConfiguration()
 
+        // torch observation
+        if videoDevice.hasTorch {
+            torchActiveObservation = videoDevice.observe(\.isTorchActive, options: .new) { [weak self] _, change in
+                self?.didChangeTorchActive(isOn: change.newValue ?? false)
+            }
+        }
+
+        // start running
         if authorizationStatus() == .notDetermined {
             videoDataOutputEnable = false
             metadataOutputEnable = true
@@ -241,14 +266,10 @@ public class QRScannerView: UIView {
             strongSelf.qrCodeImageView.frame = path.bounds
             strongSelf.qrCodeImageView.center = center
             }, completion: { [weak self] _ in
-                self?.delegate?.success(qrCode)
+                guard let strongSelf = self else { return }
+                strongSelf.qrCodeImageView.image = strongSelf.qrCodeImage
+                strongSelf.success(qrCode)
         })
-    }
-
-    private func displayQRCode(_ image: UIImage) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration) { [weak self] in
-            self?.qrCodeImageView.image = image
-        }
     }
 
     private func failure(_ error: QRScannerError) {
@@ -257,6 +278,10 @@ public class QRScannerView: UIView {
 
     private func success(_ code: String) {
         delegate?.success(code)
+    }
+
+    private func didChangeTorchActive(isOn: Bool) {
+        delegate?.didChangeTorchActive(isOn: isOn)
     }
 }
 
@@ -272,7 +297,9 @@ extension QRScannerView: AVCaptureMetadataOutputObjectsDelegate {
             videoDataOutputEnable = true
 
             DispatchQueue.main.async { [weak self] in
-                self?.moveImageViews(qrCode: stringValue, corners: readableObject.corners)
+                guard let strongSelf = self else { return }
+                strongSelf.setTorchActive(isOn: false)
+                strongSelf.moveImageViews(qrCode: stringValue, corners: readableObject.corners)
             }
         }
     }
@@ -286,7 +313,7 @@ extension QRScannerView: AVCaptureVideoDataOutputSampleBufferDelegate {
         guard videoDataOutputEnable else { return }
         guard let qrCodeImage = getImageFromSampleBuffer(sampleBuffer: sampleBuffer) else { return }
 
-        displayQRCode(qrCodeImage)
+        self.qrCodeImage = qrCodeImage
         videoDataOutputEnable = false
     }
 
