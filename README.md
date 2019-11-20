@@ -95,13 +95,17 @@ final class ViewController: UIViewController {
 }
 
 extension ViewController: QRScannerViewDelegate {
-    func failure(_ error: QRScannerError) {
-        print(error.localizedDescription)
-    }
+  func qrScannerView(_ qrScannerView: QRScannerView, didFailure error: QRScannerError) {
+      print(error.localizedDescription)
+  }
 
-    func success(_ code: String) {
-        print(code)
-    }
+  func qrScannerView(_ qrScannerView: QRScannerView, didSuccess code: String) {
+      print(code)
+  }
+
+  func qrScannerView(_ qrScannerView: QRScannerView, didChangeTorchActive isOn: Bool) {
+      // update torch button
+  }
 }
 ```
 ## Committers
