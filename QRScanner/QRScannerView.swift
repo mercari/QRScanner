@@ -10,9 +10,9 @@ import UIKit
 import AVFoundation
 
 public protocol QRScannerViewDelegate: AnyObject {
-    func failure(_ error: QRScannerError)
-    func success(_ code: String)
-    func didChangeTorchActive(isOn: Bool)
+    func qrScannerView(_ qrScannerView: QRScannerView, didFailure error: QRScannerError)
+    func qrScannerView(_ qrScannerView: QRScannerView, didSuccess code: String)
+    func qrScannerView(_ qrScannerView: QRScannerView, didChangeTorchActive isOn: Bool)
 }
 
 @IBDesignable
@@ -273,15 +273,15 @@ public class QRScannerView: UIView {
     }
 
     private func failure(_ error: QRScannerError) {
-        delegate?.failure(error)
+        delegate?.qrScannerView(self, didFailure: error)
     }
 
     private func success(_ code: String) {
-        delegate?.success(code)
+        delegate?.qrScannerView(self, didSuccess: code)
     }
 
     private func didChangeTorchActive(isOn: Bool) {
-        delegate?.didChangeTorchActive(isOn: isOn)
+        delegate?.qrScannerView(self, didChangeTorchActive: isOn)
     }
 }
 
