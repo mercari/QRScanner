@@ -9,12 +9,20 @@
 import UIKit
 import AVFoundation
 
+// MARK: - QRScannerViewDelegate
 public protocol QRScannerViewDelegate: AnyObject {
+    // Required
     func qrScannerView(_ qrScannerView: QRScannerView, didFailure error: QRScannerError)
     func qrScannerView(_ qrScannerView: QRScannerView, didSuccess code: String)
+    // Optional
     func qrScannerView(_ qrScannerView: QRScannerView, didChangeTorchActive isOn: Bool)
 }
 
+public extension QRScannerViewDelegate {
+    func qrScannerView(_ qrScannerView: QRScannerView, didChangeTorchActive isOn: Bool) {}
+}
+
+// MARK: - QRScannerView
 @IBDesignable
 public class QRScannerView: UIView {
 
