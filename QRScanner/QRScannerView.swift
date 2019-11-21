@@ -80,7 +80,8 @@ public class QRScannerView: UIView {
         assert(Thread.isMainThread)
         
         guard let videoDevice = AVCaptureDevice.default(for: .video),
-            videoDevice.hasTorch, videoDevice.isTorchAvailable else {
+            videoDevice.hasTorch, videoDevice.isTorchAvailable,
+            (metadataOutputEnable || videoDataOutputEnable) else {
                 return
         }
         try? videoDevice.lockForConfiguration()
