@@ -41,11 +41,11 @@ final class ViewController: UIViewController {
 
 // MARK: - QRScannerViewDelegate
 extension ViewController: QRScannerViewDelegate {
-    func failure(_ error: QRScannerError) {
+    func qrScannerView(_ qrScannerView: QRScannerView, didFailure error: QRScannerError) {
         print(error.localizedDescription)
     }
 
-    func success(_ code: String) {
+    func qrScannerView(_ qrScannerView: QRScannerView, didSuccess code: String) {
         if let url = URL(string: code), (url.scheme == "http" || url.scheme == "https") {
             openWeb(url: url)
         } else {
@@ -53,7 +53,7 @@ extension ViewController: QRScannerViewDelegate {
         }
     }
 
-    func didChangeTorchActive(isOn: Bool) {
+    func qrScannerView(_ qrScannerView: QRScannerView, didChangeTorchActive isOn: Bool) {
         flashButton.isSelected = isOn
     }
 }
