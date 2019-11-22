@@ -1,0 +1,13 @@
+name: UnitTest
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: macOS-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Run test
+        run: xcodebuild test -workspace QRScanner.xcworkspace -scheme UnitTests -destination 'platform=iOS Simulator,name=iPhone 11 Pro,OS=13.1'
