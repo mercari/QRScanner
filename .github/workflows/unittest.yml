@@ -1,13 +1,22 @@
-name: UnitTest
+name: CI
 
-on: [push]
+on:
+  push:
 
 jobs:
-  build:
-
+  test:
+    name: UnitTest
     runs-on: macOS-latest
+    strategy:
+      matrix:
+        destination: ['platform=iOS Simulator,OS=13.1,name=iPhone 11 Pro']
+        xcode: ['/Applications/Xcode_11.1.app/Contents/Developer']
 
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout
+        uses: actions/checkout@v1
       - name: Run test
-        run: xcodebuild test -workspace QRScanner.xcworkspace -scheme UnitTests -destination 'platform=iOS Simulator,name=iPhone 11 Pro,OS=13.1'
+        run: xcodebuild test -workspace QRScanner.xcworkspace -scheme UnitTests -destination "${destination}"
+        env:
+          destination: ${{ matrix.destination }}
+          DEVELOPER_DIR: ${{ matrix.xcode }}
