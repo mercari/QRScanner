@@ -13,6 +13,7 @@
 		16D0D5EE23570BC800A2EC78 /* QRScanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16D0D5E423570BC800A2EC78 /* QRScanner.framework */; };
 		16D0D5F323570BC800A2EC78 /* QRScannerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D0D5F223570BC800A2EC78 /* QRScannerTests.swift */; };
 		16D0D5F523570BC800A2EC78 /* QRScanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 16D0D5E723570BC800A2EC78 /* QRScanner.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		76E80674238BB26E0000C667 /* QRScannerSpyDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E80673238BB26E0000C667 /* QRScannerSpyDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +36,7 @@
 		16D0D5ED23570BC800A2EC78 /* QRScannerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QRScannerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		16D0D5F223570BC800A2EC78 /* QRScannerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerTests.swift; sourceTree = "<group>"; };
 		16D0D5F423570BC800A2EC78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		76E80673238BB26E0000C667 /* QRScannerSpyDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerSpyDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,10 +91,27 @@
 		16D0D5F123570BC800A2EC78 /* QRScannerTests */ = {
 			isa = PBXGroup;
 			children = (
-				16D0D5F223570BC800A2EC78 /* QRScannerTests.swift */,
+				76E80675238BB2730000C667 /* TestCases */,
+				76E80672238BB25F0000C667 /* Utils */,
 				16D0D5F423570BC800A2EC78 /* Info.plist */,
 			);
 			path = QRScannerTests;
+			sourceTree = "<group>";
+		};
+		76E80672238BB25F0000C667 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				76E80673238BB26E0000C667 /* QRScannerSpyDelegate.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		76E80675238BB2730000C667 /* TestCases */ = {
+			isa = PBXGroup;
+			children = (
+				16D0D5F223570BC800A2EC78 /* QRScannerTests.swift */,
+			);
+			path = TestCases;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -216,6 +235,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				16D0D5F323570BC800A2EC78 /* QRScannerTests.swift in Sources */,
+				76E80674238BB26E0000C667 /* QRScannerSpyDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
