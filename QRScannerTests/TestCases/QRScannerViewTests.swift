@@ -1,5 +1,5 @@
 //
-//  QRScannerTests.swift
+//  QRScannerViewTests.swift
 //  QRScannerTests
 //
 //  Created by wbi on 2019/10/16.
@@ -25,7 +25,7 @@ class QRScannerViewTests: XCTestCase {
     }
 
     func testConfigure() {
-        let exp = expectation(description: "Configure")
+        let exp = expectation(description: "Fail configure with simulator running")
         delegate.result.didFailure = { error in
             switch error {
             case .deviceFailure:
