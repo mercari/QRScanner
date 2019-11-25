@@ -9,26 +9,39 @@
 import XCTest
 @testable import QRScanner
 
-class QRScannerTests: XCTestCase {
+class QRScannerViewTests: XCTestCase {
+
+    var qrScanner: QRScannerView!
+    var delegate: QRScannerSpyDelegate!
 
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        super.setUp()
+        qrScanner = QRScannerView()
+        delegate = QRScannerSpyDelegate()
     }
 
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        super.tearDown()
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func testConfigure() {
+        let exp = expectation(description: "Configure")
+        delegate.result.didFailure = { error in
+            switch error {
+            case .deviceFailure:
+                break
+            default:
+                XCTFail()
+            }
+            exp.fulfill()
         }
+        delegate.result.didSuccess = { code in
+            XCTFail()
+        }
+        delegate.result.didChangeTorchActive = { isOn in
+            XCTFail()
+        }
+        qrScanner.configure(delegate: delegate)
+        wait(for: [exp], timeout: 0.1)
     }
-
 }
