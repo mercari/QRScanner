@@ -26,6 +26,19 @@ public extension QRScannerViewDelegate where Self: AnyObject {
 @IBDesignable
 public class QRScannerView: UIView {
 
+    // MARK: - Input
+    public struct Input {
+        public var focusImage: UIImage?
+        public var focusImagePadding: CGFloat?
+        public var animationDuration: Double?
+
+        public static var `default`: Input {
+            return .init(focusImage: nil,
+                         focusImagePadding: nil,
+                         animationDuration: nil)
+        }
+    }
+
     // MARK: - Public Properties
     @IBInspectable
     public var focusImage: UIImage?
@@ -38,15 +51,15 @@ public class QRScannerView: UIView {
 
     // MARK: - Public
 
-    public func configure(delegate: QRScannerViewDelegate, focusImage: UIImage? = nil, focusImagePadding: CGFloat? = nil, animationDuration: Double? = nil) {
+    public func configure(delegate: QRScannerViewDelegate, input: Input = .default) {
         self.delegate = delegate
-        if let focusImage = focusImage {
+        if let focusImage = input.focusImage {
             self.focusImage = focusImage
         }
-        if let focusImagePadding = focusImagePadding {
+        if let focusImagePadding = input.focusImagePadding {
             self.focusImagePadding = focusImagePadding
         }
-        if let animationDuration = animationDuration {
+        if let animationDuration = input.animationDuration {
             self.animationDuration = animationDuration
         }
 
