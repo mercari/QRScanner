@@ -1,7 +1,7 @@
 # QRScanner
 A simple QR Code scanner framework for iOS. Provides a similar scan effect to ios13+. Written in Swift.
 
-|iOS 13.0+|QRScanner iOS 10.0+|
+|iOS 13.0+| Use QRScanner in iOS 10.0+|
 |-|-|
 |<img src="https://raw.githubusercontent.com/mercari/QRScanner/master/images/ios13qr.gif" width="350">|<img src="https://raw.githubusercontent.com/mercari/QRScanner/master/images/qr.gif" width="350">|
 
@@ -34,7 +34,7 @@ A simple QR Code scanner framework for iOS. Provides a similar scan effect to io
 ```
 - Write Import statement on your source file
 ```
-  Import MercariQRScanner
+  import MercariQRScanner
 ```
 
 ### The Carthage Way
@@ -64,7 +64,7 @@ $(SRCROOT)/Carthage/Build/iOS/QRScanner.framework
 ```
 + Write Import statement on your source file
 ```
-Import QRScanner
+import QRScanner
 ```
 
 ## Usage
@@ -75,39 +75,87 @@ See [QRScannerSample](https://github.com/mercari/QRScanner/tree/master/QRScanner
 
 <img src="https://raw.githubusercontent.com/mercari/QRScanner/master/images/privacy_camera.png" width="500">
 
-### Source Code
+### The Basis Of Usage
 
 ```
-// If use the Pod way, import MercariQRScanner
 import QRScanner
+// If use the Pod way, please import MercariQRScanner
 
 final class ViewController: UIViewController {
-    @IBOutlet var qrScannerView: QRScannerView! {
-        didSet {
-            qrScannerView.configure(delegate: self)
-            qrScannerView.startRunning()
-        }
-    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
-    @IBAction func tapRetryScanButton(_ sender: UIButton) {
-        qrScannerView.rescan()
+        let qrScannerView = QRScannerView(frame: view.bounds)
+        view.addSubview(qrScannerView)
+        qrScannerView.configure(delegate: self)
+        qrScannerView.startRunning()
     }
 }
 
 extension ViewController: QRScannerViewDelegate {
-  func qrScannerView(_ qrScannerView: QRScannerView, didFailure error: QRScannerError) {
-      print(error.localizedDescription)
-  }
+    func qrScannerView(_ qrScannerView: QRScannerView, didFailure error: QRScannerError) {
+        print(error)
+    }
 
-  func qrScannerView(_ qrScannerView: QRScannerView, didSuccess code: String) {
-      print(code)
-  }
-
-  func qrScannerView(_ qrScannerView: QRScannerView, didChangeTorchActive isOn: Bool) {
-      // update torch button
-  }
+    func qrScannerView(_ qrScannerView: QRScannerView, didSuccess code: String) {
+        print(code)
+    }
 }
 ```
+
+### Customization
+
+#### Source Code Way
+
+```
+override func viewDidLoad() {
+        super.viewDidLoad()
+
+        let qrScannerView = QRScannerView(frame: view.bounds)
+
+        // Customize focusImage, focusImagePadding, animationDuration
+        qrScannerView.focusImage = UIImage(named: "scan_qr_focus")
+        qrScannerView.focusImagePadding = 8.0
+        qrScannerView.animationDuration = 0.5
+
+        qrScannerView.configure(delegate: self)
+        view.addSubview(qrScannerView)
+        qrScannerView.startRunning()
+}
+```
+
+#### Interface Builder Way
+
+|Setup Custom Class|Customize|
+|-|-|
+|<img src="https://raw.githubusercontent.com/mercari/QRScanner/master/images/ib1.png" width="350">|<img src="https://raw.githubusercontent.com/mercari/QRS  canner/master/images/ib2.png" width="350">|
+
+### Add FlashButton
+
+[FlashButtonSample](https://github.com/mercari/QRScanner/blob/master/QRScannerSample/QRScannerSample/FlashButton.swift)
+
+```
+final class ViewController: UIViewController {
+
+    ...
+
+    @IBOutlet var flashButton: FlashButton!
+
+    @IBAction func tapFlashButton(_ sender: UIButton) {
+        qrScannerView.setTorchActive(isOn: !sender.isSelected)
+    }
+}
+
+extension ViewController: QRScannerViewDelegate {
+
+    ...
+
+    func qrScannerView(_ qrScannerView: QRScannerView, didChangeTorchActive isOn: Bool) {
+        flashButton.isSelected = isOn
+    }
+}
+```
+
 ## Committers
 
 * Hitsu ([@hitsubunnu](https://github.com/hitsubunnu))
