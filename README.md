@@ -128,7 +128,7 @@ override func viewDidLoad() {
 
 |Setup Custom Class|Customize|
 |-|-|
-|<img src="https://raw.githubusercontent.com/mercari/QRScanner/master/images/ib1.png" width="350">|<img src="https://raw.githubusercontent.com/mercari/QRS  canner/master/images/ib2.png" width="350">|
+|<img src="https://raw.githubusercontent.com/mercari/QRScanner/master/images/ib2.png" width="350">|<img src="https://raw.githubusercontent.com/mercari/QRScanner/master/images/ib1.png" width="350">|
 
 ### Add FlashButton
 
