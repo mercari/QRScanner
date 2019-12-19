@@ -13,7 +13,7 @@ final class ViewController: UIViewController {
     // MARK: - Outlets
     @IBOutlet var qrScannerView: QRScannerView! {
         didSet {
-            qrScannerView.configure(delegate: self)
+            qrScannerView.configure(delegate: self, input: .init(blurEffectEnable: true))
         }
     }
     @IBOutlet var flashButton: FlashButton!
@@ -21,6 +21,7 @@ final class ViewController: UIViewController {
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+
     }
 
     override func viewDidDisappear(_ animated: Bool) {

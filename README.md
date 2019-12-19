@@ -158,6 +158,20 @@ extension ViewController: QRScannerViewDelegate {
 }
 ```
 
+### Add Blur Effect
+
+#### Source Code Way
+
+```
+     qrScannerView.configure(delegate: self, input: .init(blurEffectEnable: true))
+```
+
+#### Interface Builder Way
+
+```
+blurEffectEnable
+```
+
 ## Committers
 
 * Hitsu ([@hitsubunnu](https://github.com/hitsubunnu))
