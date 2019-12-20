@@ -31,17 +31,17 @@ public class QRScannerView: UIView {
         let focusImage: UIImage?
         let focusImagePadding: CGFloat?
         let animationDuration: Double?
-        let blurEffectEnable: Bool?
+        let isBlurEffectEnabled: Bool?
 
         public static var `default`: Input {
-            return .init(focusImage: nil, focusImagePadding: nil, animationDuration: nil, blurEffectEnable: nil)
+            return .init(focusImage: nil, focusImagePadding: nil, animationDuration: nil, isBlurEffectEnabled: nil)
         }
 
-        public init(focusImage: UIImage? = nil, focusImagePadding: CGFloat? = nil, animationDuration: Double? = nil, blurEffectEnable: Bool? = nil) {
+        public init(focusImage: UIImage? = nil, focusImagePadding: CGFloat? = nil, animationDuration: Double? = nil, isBlurEffectEnabled: Bool? = nil) {
             self.focusImage = focusImage
             self.focusImagePadding = focusImagePadding
             self.animationDuration = animationDuration
-            self.blurEffectEnable = blurEffectEnable
+            self.isBlurEffectEnabled = isBlurEffectEnabled
         }
     }
 
@@ -56,7 +56,7 @@ public class QRScannerView: UIView {
     public var animationDuration: Double = 0.5
 
     @IBInspectable
-    public var blurEffectEnable = false
+    public var isBlurEffectEnabled = false
 
     // MARK: - Public
 
@@ -71,8 +71,8 @@ public class QRScannerView: UIView {
         if let animationDuration = input.animationDuration {
             self.animationDuration = animationDuration
         }
-        if let blurEffectEnable = input.blurEffectEnable {
-            self.blurEffectEnable = blurEffectEnable
+        if let isBlurEffectEnabled = input.isBlurEffectEnabled {
+            self.isBlurEffectEnabled = isBlurEffectEnabled
         }
 
         configureSession()
@@ -102,7 +102,7 @@ public class QRScannerView: UIView {
 
     public func rescan() {
         guard isAuthorized() else { return }
-        if blurEffectEnable {
+        if isBlurEffectEnabled {
             blurEffectView.isHidden = true
         }
         focusImageView.removeFromSuperview()
@@ -245,7 +245,7 @@ public class QRScannerView: UIView {
     }
 
     private func setupBlurEffectView() {
-        guard blurEffectEnable else { return }
+        guard isBlurEffectEnabled else { return }
         blurEffectView.isHidden = true
         addSubview(blurEffectView)
     }
@@ -318,7 +318,7 @@ public class QRScannerView: UIView {
             }, completion: { [weak self] _ in
                 guard let strongSelf = self else { return }
                 strongSelf.qrCodeImageView.image = strongSelf.qrCodeImage
-                if strongSelf.blurEffectEnable {
+                if strongSelf.isBlurEffectEnabled {
                     strongSelf.blurEffectView.isHidden = false
                 }
                 strongSelf.success(qrCode)

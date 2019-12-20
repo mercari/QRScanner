@@ -13,7 +13,7 @@ final class ViewController: UIViewController {
     // MARK: - Outlets
     @IBOutlet var qrScannerView: QRScannerView! {
         didSet {
-            qrScannerView.configure(delegate: self, input: .init(blurEffectEnable: true))
+            qrScannerView.configure(delegate: self, input: .init(isBlurEffectEnabled: true))
         }
     }
     @IBOutlet var flashButton: FlashButton!

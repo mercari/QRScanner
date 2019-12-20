@@ -163,13 +163,13 @@ extension ViewController: QRScannerViewDelegate {
 #### Source Code Way
 
 ```
-     qrScannerView.configure(delegate: self, input: .init(blurEffectEnable: true))
+     qrScannerView.configure(delegate: self, input: .init(isBlurEffectEnabled: true))
 ```
 
 #### Interface Builder Way
 
 ```
-blurEffectEnable
+isBlurEffectEnabled
 ```
 
 ## Committers
