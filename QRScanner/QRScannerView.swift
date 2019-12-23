@@ -28,14 +28,20 @@ public class QRScannerView: UIView {
 
     // MARK: - Input
     public struct Input {
-        public var focusImage: UIImage?
-        public var focusImagePadding: CGFloat?
-        public var animationDuration: Double?
+        let focusImage: UIImage?
+        let focusImagePadding: CGFloat?
+        let animationDuration: Double?
+        let isBlurEffectEnabled: Bool?
 
         public static var `default`: Input {
-            return .init(focusImage: nil,
-                         focusImagePadding: nil,
-                         animationDuration: nil)
+            return .init(focusImage: nil, focusImagePadding: nil, animationDuration: nil, isBlurEffectEnabled: nil)
+        }
+
+        public init(focusImage: UIImage? = nil, focusImagePadding: CGFloat? = nil, animationDuration: Double? = nil, isBlurEffectEnabled: Bool? = nil) {
+            self.focusImage = focusImage
+            self.focusImagePadding = focusImagePadding
+            self.animationDuration = animationDuration
+            self.isBlurEffectEnabled = isBlurEffectEnabled
         }
     }
 
@@ -48,6 +54,9 @@ public class QRScannerView: UIView {
 
     @IBInspectable
     public var animationDuration: Double = 0.5
+
+    @IBInspectable
+    public var isBlurEffectEnabled = false
 
     // MARK: - Public
 
@@ -62,9 +71,13 @@ public class QRScannerView: UIView {
         if let animationDuration = input.animationDuration {
             self.animationDuration = animationDuration
         }
+        if let isBlurEffectEnabled = input.isBlurEffectEnabled {
+            self.isBlurEffectEnabled = isBlurEffectEnabled
+        }
 
         configureSession()
         addPreviewLayer()
+        setupBlurEffectView()
         setupImageViews()
     }
 
@@ -89,6 +102,9 @@ public class QRScannerView: UIView {
 
     public func rescan() {
         guard isAuthorized() else { return }
+        if isBlurEffectEnabled {
+            blurEffectView.isHidden = true
+        }
         focusImageView.removeFromSuperview()
         qrCodeImageView.removeFromSuperview()
         setupImageViews()
@@ -140,6 +156,12 @@ public class QRScannerView: UIView {
     private var videoDataOutputEnable = false
     private var torchActiveObservation: NSKeyValueObservation?
     private var qrCodeImage: UIImage?
+    private lazy var blurEffectView: UIVisualEffectView = {
+        let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+        blurEffectView.frame = self.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        return blurEffectView
+    }()
 
     private enum AuthorizationStatus {
         case authorized, notDetermined, restrictedOrDenied
@@ -222,6 +244,12 @@ public class QRScannerView: UIView {
         }
     }
 
+    private func setupBlurEffectView() {
+        guard isBlurEffectEnabled else { return }
+        blurEffectView.isHidden = true
+        addSubview(blurEffectView)
+    }
+
     private func setupImageViews() {
         let width = UIScreen.main.bounds.width * 0.618
         let x = UIScreen.main.bounds.width * 0.191
@@ -290,6 +318,9 @@ public class QRScannerView: UIView {
             }, completion: { [weak self] _ in
                 guard let strongSelf = self else { return }
                 strongSelf.qrCodeImageView.image = strongSelf.qrCodeImage
+                if strongSelf.isBlurEffectEnabled {
+                    strongSelf.blurEffectView.isHidden = false
+                }
                 strongSelf.success(qrCode)
         })
     }
