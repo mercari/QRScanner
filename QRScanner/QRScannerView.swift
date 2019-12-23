@@ -56,7 +56,7 @@ public class QRScannerView: UIView {
     public var animationDuration: Double = 0.5
 
     @IBInspectable
-    public var isBlurEffectEnabled = false
+    public var isBlurEffectEnabled: Bool = false
 
     // MARK: - Public
 

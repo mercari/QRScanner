@@ -168,9 +168,9 @@ extension ViewController: QRScannerViewDelegate {
 
 #### Interface Builder Way
 
-```
-isBlurEffectEnabled
-```
+|Customize|
+|-|
+|<img src="https://raw.githubusercontent.com/mercari/QRScanner/master/images/ib1.png" width="350">|
 
 ## Committers
 
