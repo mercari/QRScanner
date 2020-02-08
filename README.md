@@ -25,7 +25,7 @@ A simple QR Code scanner framework for iOS. Provides a similar scan effect to io
 ### The Pod Way
 
 - Simply add the following line to your <code>Podfile</code>
-```
+```ruby
   platform :ios, '10.0'
   pod 'MercariQRScanner'
 ```
@@ -35,7 +35,7 @@ A simple QR Code scanner framework for iOS. Provides a similar scan effect to io
   pod install
 ```
 - Write Import statement on your source file
-```
+```swift
   import MercariQRScanner
 ```
 
@@ -65,7 +65,7 @@ github "mercari/QRScanner"
 $(SRCROOT)/Carthage/Build/iOS/QRScanner.framework
 ```
 + Write Import statement on your source file
-```
+```swift
 import QRScanner
 ```
 
@@ -79,7 +79,7 @@ See [QRScannerSample](https://github.com/mercari/QRScanner/tree/master/QRScanner
 
 ### The Basis Of Usage
 
-```
+```swift
 import QRScanner
 // If use the Pod way, please import MercariQRScanner
 
@@ -109,7 +109,7 @@ extension ViewController: QRScannerViewDelegate {
 
 #### Source Code Way
 
-```
+```swift
 override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -136,7 +136,7 @@ override func viewDidLoad() {
 
 [FlashButtonSample](https://github.com/mercari/QRScanner/blob/master/QRScannerSample/QRScannerSample/FlashButton.swift)
 
-```
+```swift
 final class ViewController: UIViewController {
 
     ...
@@ -162,7 +162,7 @@ extension ViewController: QRScannerViewDelegate {
 
 #### Source Code Way
 
-```
+```swift
      qrScannerView.configure(delegate: self, input: .init(isBlurEffectEnabled: true))
 ```
 
