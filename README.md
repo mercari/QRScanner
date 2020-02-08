@@ -17,7 +17,7 @@ A simple QR Code scanner framework for iOS. Provides a similar scan effect to io
 ## Development Requirements
 - iOS 10.0+
 - Swift: 5.0
-- XCode Version: 10.3 (10G8)
+- Xcode Version: 10.3 (10G8)
 
 ## Installation
 <a href="http://cocoapods.org/" target="_blank">CocoaPods</a> is the recommended method of installing QRScanner.
