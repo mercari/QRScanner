@@ -54,7 +54,7 @@ github "mercari/QRScanner"
 > carthage update --platform iOS
 ```
 
-- In Xcode, move to "Genera > Build Phase > Linked Frameworks and Library"
+- In Xcode, move to "General > Build Phase > Linked Frameworks and Libraries"
 - Add the framework to your project
 - Add a new run script and put the following code
 ```
