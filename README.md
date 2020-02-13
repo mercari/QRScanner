@@ -17,7 +17,7 @@ A simple QR Code scanner framework for iOS. Provides a similar scan effect to io
 ## Development Requirements
 - iOS 10.0+
 - Swift: 5.0
-- XCode Version: 10.3 (10G8)
+- Xcode Version: 10.3 (10G8)
 
 ## Installation
 <a href="http://cocoapods.org/" target="_blank">CocoaPods</a> is the recommended method of installing QRScanner.
@@ -25,7 +25,7 @@ A simple QR Code scanner framework for iOS. Provides a similar scan effect to io
 ### The Pod Way
 
 - Simply add the following line to your <code>Podfile</code>
-```
+```ruby
   platform :ios, '10.0'
   pod 'MercariQRScanner'
 ```
@@ -35,7 +35,7 @@ A simple QR Code scanner framework for iOS. Provides a similar scan effect to io
   pod install
 ```
 - Write Import statement on your source file
-```
+```swift
   import MercariQRScanner
 ```
 
@@ -54,7 +54,7 @@ github "mercari/QRScanner"
 > carthage update --platform iOS
 ```
 
-- In Xcode, move to "Genera > Build Phase > Linked Frameworks and Library"
+- In Xcode, move to "General > Build Phase > Linked Frameworks and Libraries"
 - Add the framework to your project
 - Add a new run script and put the following code
 ```
@@ -65,7 +65,7 @@ github "mercari/QRScanner"
 $(SRCROOT)/Carthage/Build/iOS/QRScanner.framework
 ```
 + Write Import statement on your source file
-```
+```swift
 import QRScanner
 ```
 
@@ -79,7 +79,7 @@ See [QRScannerSample](https://github.com/mercari/QRScanner/tree/master/QRScanner
 
 ### The Basis Of Usage
 
-```
+```swift
 import QRScanner
 // If use the Pod way, please import MercariQRScanner
 
@@ -109,7 +109,7 @@ extension ViewController: QRScannerViewDelegate {
 
 #### Source Code Way
 
-```
+```swift
 override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -136,7 +136,7 @@ override func viewDidLoad() {
 
 [FlashButtonSample](https://github.com/mercari/QRScanner/blob/master/QRScannerSample/QRScannerSample/FlashButton.swift)
 
-```
+```swift
 final class ViewController: UIViewController {
 
     ...
@@ -162,7 +162,7 @@ extension ViewController: QRScannerViewDelegate {
 
 #### Source Code Way
 
-```
+```swift
      qrScannerView.configure(delegate: self, input: .init(isBlurEffectEnabled: true))
 ```
 
