@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  QRViewController.swift
 //  QRScannerSample
 //
 //  Created by wbi on 2019/10/16.
@@ -9,29 +9,29 @@
 import UIKit
 import QRScanner
 
-final class ViewController: UIViewController {
+final class QRViewController: UIViewController {
     // MARK: - Outlets
-    @IBOutlet var qrScannerView: QRScannerView! {
-        didSet {
-            qrScannerView.configure(delegate: self, input: .init(isBlurEffectEnabled: true))
-        }
-    }
     @IBOutlet var flashButton: FlashButton!
+
+    private let qrScannerView = QRScannerView()
 
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        qrScannerView.frame = view.bounds
+        qrScannerView.configure(delegate: self)
+        view.addSubview(qrScannerView)
+        qrScannerView.startRunning()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        qrScannerView.stopRunning()
+//        qrScannerView.stopRunning()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        qrScannerView.startRunning()
     }
 
     // MARK: - Actions
@@ -41,7 +41,7 @@ final class ViewController: UIViewController {
 }
 
 // MARK: - QRScannerViewDelegate
-extension ViewController: QRScannerViewDelegate {
+extension QRViewController: QRScannerViewDelegate {
     func qrScannerView(_ qrScannerView: QRScannerView, didFailure error: QRScannerError) {
         print(error.localizedDescription)
     }
@@ -60,7 +60,7 @@ extension ViewController: QRScannerViewDelegate {
 }
 
 // MARK: - Private
-private extension ViewController {
+private extension QRViewController {
     func openWeb(url: URL) {
         UIApplication.shared.open(url, options: [:], completionHandler: { _ in
             self.qrScannerView.rescan()

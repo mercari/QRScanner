@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		160390EB2474E4FF008FE728 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 160390EA2474E4FF008FE728 /* Main.storyboard */; };
+		160390ED2474E52F008FE728 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160390EC2474E52F008FE728 /* MainViewController.swift */; };
 		16A163ED235710040032684C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A163EC235710040032684C /* AppDelegate.swift */; };
-		16A163EF235710040032684C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A163EE235710040032684C /* ViewController.swift */; };
-		16A163F2235710040032684C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16A163F0235710040032684C /* Main.storyboard */; };
+		16A163EF235710040032684C /* QRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A163EE235710040032684C /* QRViewController.swift */; };
+		16A163F2235710040032684C /* QRViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16A163F0235710040032684C /* QRViewController.storyboard */; };
 		16A163F4235710050032684C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16A163F3235710050032684C /* Assets.xcassets */; };
 		16A163F7235710050032684C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16A163F5235710050032684C /* LaunchScreen.storyboard */; };
 		16A163FF235710580032684C /* QRScanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16A163FE235710580032684C /* QRScanner.framework */; };
@@ -32,10 +34,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		160390EA2474E4FF008FE728 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		160390EC2474E52F008FE728 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		16A163E9235710040032684C /* QRScannerSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QRScannerSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16A163EC235710040032684C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		16A163EE235710040032684C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		16A163F1235710040032684C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		16A163EE235710040032684C /* QRViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRViewController.swift; sourceTree = "<group>"; };
+		16A163F1235710040032684C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/QRViewController.storyboard; sourceTree = "<group>"; };
 		16A163F3235710050032684C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		16A163F6235710050032684C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		16A163F8235710050032684C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -76,12 +80,14 @@
 			isa = PBXGroup;
 			children = (
 				16A163EC235710040032684C /* AppDelegate.swift */,
-				16A163EE235710040032684C /* ViewController.swift */,
+				16A163EE235710040032684C /* QRViewController.swift */,
 				76598FBE237586CC0099593E /* FlashButton.swift */,
-				16A163F0235710040032684C /* Main.storyboard */,
+				16A163F0235710040032684C /* QRViewController.storyboard */,
 				16A163F3235710050032684C /* Assets.xcassets */,
 				16A163F5235710050032684C /* LaunchScreen.storyboard */,
 				16A163F8235710050032684C /* Info.plist */,
+				160390EA2474E4FF008FE728 /* Main.storyboard */,
+				160390EC2474E52F008FE728 /* MainViewController.swift */,
 			);
 			path = QRScannerSample;
 			sourceTree = "<group>";
@@ -147,7 +153,8 @@
 			files = (
 				16A163F7235710050032684C /* LaunchScreen.storyboard in Resources */,
 				16A163F4235710050032684C /* Assets.xcassets in Resources */,
-				16A163F2235710040032684C /* Main.storyboard in Resources */,
+				16A163F2235710040032684C /* QRViewController.storyboard in Resources */,
+				160390EB2474E4FF008FE728 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,21 +165,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				16A163EF235710040032684C /* ViewController.swift in Sources */,
+				16A163EF235710040032684C /* QRViewController.swift in Sources */,
 				16A163ED235710040032684C /* AppDelegate.swift in Sources */,
 				76598FBF237586CC0099593E /* FlashButton.swift in Sources */,
+				160390ED2474E52F008FE728 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		16A163F0235710040032684C /* Main.storyboard */ = {
+		16A163F0235710040032684C /* QRViewController.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				16A163F1235710040032684C /* Base */,
 			);
-			name = Main.storyboard;
+			name = QRViewController.storyboard;
 			sourceTree = "<group>";
 		};
 		16A163F5235710050032684C /* LaunchScreen.storyboard */ = {

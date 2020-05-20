@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -11,7 +11,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="QRScannerSample" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="QRViewController" customModule="QRScannerSample" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -21,14 +21,13 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="79y-mq-bOP" customClass="FlashButton" customModule="QRScannerSample" customModuleProvider="target">
-                                <rect key="frame" x="167" y="742" width="80" height="80"/>
+                                <rect key="frame" x="184" y="742" width="46" height="80"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="80" id="A8o-8g-CqC"/>
                                     <constraint firstAttribute="height" constant="80" id="xOe-hR-q49"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <connections>
-                                    <action selector="tapFlashButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bCy-cw-2Xc"/>
+                                    <action selector="tapFlashButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nAn-mE-v9t"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -44,8 +43,8 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="flashButton" destination="79y-mq-bOP" id="jxg-iE-HM6"/>
-                        <outlet property="qrScannerView" destination="Lq8-gV-FhD" id="mRw-2F-wc5"/>
+                        <outlet property="flashButton" destination="79y-mq-bOP" id="zty-4Y-YHZ"/>
+                        <outlet property="qrScannerView" destination="Lq8-gV-FhD" id="Fh1-bv-d7v"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

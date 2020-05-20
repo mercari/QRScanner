@@ -133,11 +133,11 @@ public class QRScannerView: UIView {
         session.inputs.forEach { session.removeInput($0) }
         session.outputs.forEach { session.removeOutput($0) }
         removePreviewLayer()
-        if session.isRunning {
-            videoDataQueue.async { [weak self] in
-                self?.session.stopRunning()
-            }
-        }
+//        if session.isRunning {
+//            videoDataQueue.async { [weak self] in
+//                self?.session.stopRunning()
+//            }
+//        }
         torchActiveObservation = nil
     }
 
