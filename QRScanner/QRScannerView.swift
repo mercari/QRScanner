@@ -128,6 +128,19 @@ public class QRScannerView: UIView {
         videoDevice.unlockForConfiguration()
     }
 
+    public override var frame: CGRect {
+        willSet {
+        }
+        didSet {
+            if oldValue.size.width != frame.size.width || oldValue.size.height != frame.size.height {
+                focusImageView.removeFromSuperview()
+                qrCodeImageView.removeFromSuperview()
+                setupImageViews()
+                self.previewLayer?.frame = self.bounds
+            }
+        }
+    }
+
     deinit {
         setTorchActive(isOn: false)
         focusImageView.removeFromSuperview()
