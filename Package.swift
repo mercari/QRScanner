@@ -21,10 +21,6 @@ let package = Package(
             path: "QRScanner",
             exclude: [
                 "Info.plist",
-            ],
-            linkerSettings: [
-                .linkedFramework("AVFoundation"),
-                .linkedFramework("UIKit"),
             ]
         ),
     ]
