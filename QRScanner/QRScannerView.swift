@@ -79,6 +79,8 @@ public class QRScannerView: UIView {
         addPreviewLayer()
         setupBlurEffectView()
         setupImageViews()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updatePreviewLayerForDeviceOrientation), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
 
     public func startRunning() {
@@ -126,6 +128,19 @@ public class QRScannerView: UIView {
         videoDevice.unlockForConfiguration()
     }
 
+    public override var frame: CGRect {
+        willSet {
+        }
+        didSet {
+            if oldValue.size.width != frame.size.width || oldValue.size.height != frame.size.height {
+                focusImageView.removeFromSuperview()
+                qrCodeImageView.removeFromSuperview()
+                setupImageViews()
+                self.previewLayer?.frame = self.bounds
+            }
+        }
+    }
+
     deinit {
         setTorchActive(isOn: false)
         focusImageView.removeFromSuperview()
@@ -134,6 +149,7 @@ public class QRScannerView: UIView {
         session.outputs.forEach { session.removeOutput($0) }
         removePreviewLayer()
         torchActiveObservation = nil
+        NotificationCenter.default.removeObserver(self, name: UIDevice.orientationDidChangeNotification, object: nil)
     }
 
     // MARK: - Private
@@ -246,8 +262,8 @@ public class QRScannerView: UIView {
     }
 
     private func setupImageViews() {
-        let width = self.bounds.width * 0.618
-        let x = self.bounds.width * 0.191
+        let width = min(self.bounds.width, self.bounds.height) * 0.618
+        let x = (self.bounds.width > self.bounds.height) ? (self.bounds.width - width) / 2 : self.bounds.width * 0.191
         let y = self.bounds.height * 0.191
         focusImageView = UIImageView(frame: CGRect(x: x, y: y, width: width, height: width))
         focusImageView.image = focusImage ?? UIImage(named: "scan_qr_focus", in: .module, compatibleWith: nil)
@@ -265,6 +281,23 @@ public class QRScannerView: UIView {
         layer.addSublayer(previewLayer)
 
         self.previewLayer = previewLayer
+        
+        updatePreviewLayerForDeviceOrientation()
+    }
+
+    @objc private func updatePreviewLayerForDeviceOrientation() {
+        var videoOrientation: AVCaptureVideoOrientation
+        switch UIDevice.current.orientation {
+        case .landscapeLeft:
+            videoOrientation = .landscapeRight
+        case .landscapeRight:
+            videoOrientation = .landscapeLeft
+        case .portraitUpsideDown:
+            videoOrientation = .portraitUpsideDown
+        default:
+            videoOrientation = .portrait
+        }
+        self.previewLayer?.connection?.videoOrientation = videoOrientation
     }
 
     private func removePreviewLayer() {
