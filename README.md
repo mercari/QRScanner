@@ -12,7 +12,7 @@ A simple QR Code scanner framework for iOS. Provides a similar scan effect to io
 ## Feature
 - Similar to iOS 13.0+ design
 - Simple usage  <a href="https://github.com/mercari/QRScanner/blob/master/QRScannerSample/QRScannerSample/ViewController.swift" target="_blank">Sample</a>
-- Support for iOS 10.0+
+- Support from iOS 10.0+
 
 ## Development Requirements
 - iOS 10.0+
