@@ -18,7 +18,7 @@ public protocol QRScannerViewDelegate: AnyObject {
     func qrScannerView(_ qrScannerView: QRScannerView, didChangeTorchActive isOn: Bool)
 }
 
-public extension QRScannerViewDelegate where Self: AnyObject {
+public extension QRScannerViewDelegate {
     func qrScannerView(_ qrScannerView: QRScannerView, didChangeTorchActive isOn: Bool) {}
 }
 
