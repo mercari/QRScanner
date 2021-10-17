@@ -2,7 +2,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "MercariQRScanner"
-  s.version      = "1.8.0"
+  s.version      = "1.9.0"
   s.summary      = "A simple QR Code scanner framework for iOS. Provides a similar scan effect to ios13+. Written in Swift."
   s.homepage     = "https://github.com/mercari/QRScanner"
   s.license      = "MIT"
