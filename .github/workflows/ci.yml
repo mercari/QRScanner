@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches:
-      - master
+    branches: [ $default-branch ]
   pull_request:
+    branches: [ $default-branch ]
 
 jobs:
   test:
@@ -12,8 +12,8 @@ jobs:
     runs-on: macOS-latest
     strategy:
       matrix:
-        destination: ['platform=iOS Simulator,OS=13.1,name=iPhone 11 Pro']
-        xcode: ['/Applications/Xcode_11.1.app/Contents/Developer']
+        destination: ['platform=iOS Simulator,OS=15.0,name=iPhone 13 Pro Max']
+        xcode: ['/Applications/Xcode_13.1.app/Contents/Developer']
 
     steps:
       - name: Checkout
