@@ -62,8 +62,8 @@ extension ViewController: QRScannerViewDelegate {
 // MARK: - Private
 private extension ViewController {
     func openWeb(url: URL) {
-        UIApplication.shared.open(url, options: [:], completionHandler: { _ in
-            self.qrScannerView.rescan()
+        UIApplication.shared.open(url, options: [:], completionHandler: { [weak self] _ in
+            self?.qrScannerView.rescan()
         })
     }
 
