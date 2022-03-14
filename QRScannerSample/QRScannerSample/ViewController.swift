@@ -24,19 +24,12 @@ final class ViewController: UIViewController {
     private func setupQRScanner() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized:
-            qrScannerView.configure(delegate: self, input: .init(isBlurEffectEnabled: true))
-            qrScannerView.startRunning()
+            setupQRScannerView()
         case .notDetermined:
             AVCaptureDevice.requestAccess(for: .video) { [weak self] granted in
                 if granted {
                     DispatchQueue.main.async { [weak self] in
-                        guard let strongSelf = self else { return }
-                        strongSelf.qrScannerView.configure(delegate: strongSelf, input: .init(isBlurEffectEnabled: true))
-                        strongSelf.qrScannerView.startRunning()
-                        let qrScannerView = QRScannerView(frame: strongSelf.view.bounds)
-                        strongSelf.view.addSubview(qrScannerView)
-                        qrScannerView.configure(delegate: strongSelf)
-                        qrScannerView.startRunning()
+                        self?.setupQRScannerView()
                     }
                 }
             }
@@ -49,14 +42,14 @@ final class ViewController: UIViewController {
         }
     }
 
+    private func setupQRScannerView() {
+        qrScannerView.configure(delegate: self, input: .init(isBlurEffectEnabled: true))
+        qrScannerView.startRunning()
+    }
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         qrScannerView.stopRunning()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        qrScannerView.startRunning()
     }
 
     // MARK: - Actions
