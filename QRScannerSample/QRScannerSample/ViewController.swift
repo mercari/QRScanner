@@ -33,6 +33,10 @@ final class ViewController: UIViewController {
                         guard let strongSelf = self else { return }
                         strongSelf.qrScannerView.configure(delegate: strongSelf, input: .init(isBlurEffectEnabled: true))
                         strongSelf.qrScannerView.startRunning()
+                        let qrScannerView = QRScannerView(frame: strongSelf.view.bounds)
+                        strongSelf.view.addSubview(qrScannerView)
+                        qrScannerView.configure(delegate: strongSelf)
+                        qrScannerView.startRunning()
                     }
                 }
             }
