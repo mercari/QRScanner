@@ -80,8 +80,8 @@ See [QRScannerSample](https://github.com/mercari/QRScanner/tree/master/QRScanner
 ### The Basis Of Usage
 
 ```swift
-import QRScanner
-// If use the Pod way, please import MercariQRScanner
+import QRScanner // If use the Pod way, please import MercariQRScanner
+import AVFoundation
 
 final class ViewController: UIViewController {
     override func viewDidLoad() {
