@@ -92,28 +92,32 @@ final class ViewController: UIViewController {
     private func setupQRScanner() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized:
-            let qrScannerView = QRScannerView(frame: view.bounds)
-            view.addSubview(qrScannerView)
-            qrScannerView.configure(delegate: self)
-            qrScannerView.startRunning()
+            setupQRScannerView()
         case .notDetermined:
             AVCaptureDevice.requestAccess(for: .video) { [weak self] granted in
                 if granted {
                     DispatchQueue.main.async { [weak self] in
-                        guard let strongSelf = self else { return }
-            		let qrScannerView = QRScannerView(frame: strongSelf.view.bounds)
-            		strongSelf.view.addSubview(qrScannerView)
-            		qrScannerView.configure(delegate: strongSelf)
-            		qrScannerView.startRunning()
+                        self?.setupQRScannerView()
                     }
                 }
             }
         default:
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-                let alert = UIAlertController(title: "Error", message: "Camera is required to use in this application", preferredStyle: .alert)
-                alert.addAction(.init(title: "OK", style: .default))
-                self?.present(alert, animated: true)
-            }
+            showAlert()
+        }
+    }
+
+    private func setupQRScannerView() {
+        let qrScannerView = QRScannerView(frame: view.bounds)
+        view.addSubview(qrScannerView)
+        qrScannerView.configure(delegate: self, input: .init(isBlurEffectEnabled: true))
+        qrScannerView.startRunning()
+    }
+
+    private showAlert() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            let alert = UIAlertController(title: "Error", message: "Camera is required to use in this application", preferredStyle: .alert)
+            alert.addAction(.init(title: "OK", style: .default))
+            self?.present(alert, animated: true)
         }
     }
 }
