@@ -34,17 +34,21 @@ final class ViewController: UIViewController {
                 }
             }
         default:
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-                let alert = UIAlertController(title: "Error", message: "Camera is required to use in this application", preferredStyle: .alert)
-                alert.addAction(.init(title: "OK", style: .default))
-                self?.present(alert, animated: true)
-            }
+            showAlert()
         }
     }
 
     private func setupQRScannerView() {
         qrScannerView.configure(delegate: self, input: .init(isBlurEffectEnabled: true))
         qrScannerView.startRunning()
+    }
+
+    private func showAlert() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            let alert = UIAlertController(title: "Error", message: "Camera is required to use in this application", preferredStyle: .alert)
+            alert.addAction(.init(title: "OK", style: .default))
+            self?.present(alert, animated: true)
+        }
     }
 
     override func viewDidDisappear(_ animated: Bool) {
