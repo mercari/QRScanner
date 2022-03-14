@@ -8,20 +8,41 @@
 
 import UIKit
 import QRScanner
+import AVFoundation
 
 final class ViewController: UIViewController {
     // MARK: - Outlets
-    @IBOutlet var qrScannerView: QRScannerView! {
-        didSet {
-            qrScannerView.configure(delegate: self, input: .init(isBlurEffectEnabled: true))
-        }
-    }
+    @IBOutlet var qrScannerView: QRScannerView!
     @IBOutlet var flashButton: FlashButton!
 
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupQRScanner()
+    }
 
+    private func setupQRScanner() {
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        case .authorized:
+            qrScannerView.configure(delegate: self, input: .init(isBlurEffectEnabled: true))
+            qrScannerView.startRunning()
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(for: .video) { [weak self] granted in
+                if granted {
+                    DispatchQueue.main.async { [weak self] in
+                        guard let strongSelf = self else { return }
+                        strongSelf.qrScannerView.configure(delegate: strongSelf, input: .init(isBlurEffectEnabled: true))
+                        strongSelf.qrScannerView.startRunning()
+                    }
+                }
+            }
+        default:
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                let alert = UIAlertController(title: "Error", message: "Camera is required to use in this application", preferredStyle: .alert)
+                alert.addAction(.init(title: "OK", style: .default))
+                self?.present(alert, animated: true)
+            }
+        }
     }
 
     override func viewDidDisappear(_ animated: Bool) {
