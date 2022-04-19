@@ -113,7 +113,7 @@ final class ViewController: UIViewController {
         qrScannerView.startRunning()
     }
 
-    private showAlert() {
+    private func showAlert() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             let alert = UIAlertController(title: "Error", message: "Camera is required to use in this application", preferredStyle: .alert)
             alert.addAction(.init(title: "OK", style: .default))
