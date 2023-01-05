@@ -12,8 +12,8 @@ jobs:
     runs-on: macOS-latest
     strategy:
       matrix:
-        destination: ['platform=iOS Simulator,OS=15.0,name=iPhone 13 Pro Max']
-        xcode: ['/Applications/Xcode_13.1.app/Contents/Developer']
+        destination: ['platform=iOS Simulator,OS=16.1,name=iPhone 14 Pro Max']
+        xcode: ['/Applications/Xcode_14.1.app/Contents/Developer']
 
     steps:
       - name: Checkout
