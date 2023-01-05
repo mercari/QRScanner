@@ -16,15 +16,15 @@ A simple QR Code scanner framework for iOS. Provides a similar scan effect to io
 
 ## Development Requirements
 - iOS 10.0+
-- Swift: 5.4.2
-- Xcode Version: 13.0
+- Swift: 5.7.1
+- Xcode Version: 14.1
 
 ## Installation
-<a href="http://cocoapods.org/" target="_blank">CocoaPods</a> is the recommended method of installing QRScanner.
+QRScanner supports multiple methods for installing the library in a project.
 
-### The Pod Way
+### Installation with CocoaPods
 
-- Simply add the following line to your <code>Podfile</code>
+- To integrate QRScanner into your Xcode project using CocoaPods, specify it in your <code>Podfile</code>
 ```ruby
   platform :ios, '10.0'
   pod 'MercariQRScanner'
@@ -39,32 +39,27 @@ A simple QR Code scanner framework for iOS. Provides a similar scan effect to io
   import MercariQRScanner
 ```
 
-### The Carthage Way
+### Installation with Swift Package Manager
 
-- Move your project dir and create Cartfile
+Once you have your Swift package set up, adding QRScanner as a dependency is as easy as adding it to the dependencies value of your <code>Package.swift</code>.
 ```
-> touch Cartfile
+dependencies: [
+    .package(url: "https://github.com/mercari/QRScanner.git", .upToNextMajor(from: "1.9.0"))
+]
 ```
-- add the following line to Cartfile
+
+- Write Import statement on your source file
+```swift
+import QRScanner
+```
+
+### Installation with Carthage
+
+- To integrate QRScanner, add the following to your <code>Cartfile</code>.
 ```
 github "mercari/QRScanner"
 ```
-- Create framework
-```
-> carthage update --platform iOS
-```
-
-- In Xcode, move to "General > Build Phase > Linked Frameworks and Libraries"
-- Add the framework to your project
-- Add a new run script and put the following code
-```
-/usr/local/bin/carthage copy-frameworks
-```
-- Click "+" at Input file and Add the framework path
-```
-$(SRCROOT)/Carthage/Build/iOS/QRScanner.framework
-```
-+ Write Import statement on your source file
+- Write Import statement on your source file
 ```swift
 import QRScanner
 ```
