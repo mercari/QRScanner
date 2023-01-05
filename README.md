@@ -15,7 +15,7 @@ A simple QR Code scanner framework for iOS. Provides a similar scan effect to io
 - Support from iOS 10.0+
 
 ## Development Requirements
-- iOS 10.0+
+- iOS 11.0+
 - Swift: 5.7.1
 - Xcode Version: 14.1
 
@@ -26,7 +26,7 @@ QRScanner supports multiple methods for installing the library in a project.
 
 - To integrate QRScanner into your Xcode project using CocoaPods, specify it in your <code>Podfile</code>
 ```ruby
-  platform :ios, '10.0'
+  platform :ios, '11.0'
   pod 'MercariQRScanner'
 ```
 
