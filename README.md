@@ -39,6 +39,15 @@ QRScanner supports multiple methods for installing the library in a project.
   import MercariQRScanner
 ```
 
+- Multiple commands produce `.../xxx.app/Assets.car` issue
+
+```ruby
+# Private libraries using Images.xcassets have a problem with Assets.car being generated multiple times causing conflicts.
+# In the Podfile file, add
+install! 'cocoapods', :disable_input_output_paths => true
+```
+
+
 ### Installation with Swift Package Manager
 
 Once you have your Swift package set up, adding QRScanner as a dependency is as easy as adding it to the dependencies value of your <code>Package.swift</code>.
