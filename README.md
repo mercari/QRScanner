@@ -49,6 +49,106 @@ See [QRScannerSample](https://github.com/mercari/QRScanner/tree/master/QRScanner
 
 <img src="https://raw.githubusercontent.com/mercari/QRScanner/master/images/privacy_camera.png" width="500">
 
+## SwiftUI Usage
+
+### Basic SwiftUI Implementation
+
+```swift
+import SwiftUI
+import QRScanner
+import AVFoundation
+
+struct ContentView: View {
+    @State private var scannedCode = ""
+    @State private var isPresented = false
+    
+    var body: some View {
+        VStack {
+            Button("Start Scanning") {
+                isPresented = true
+            }
+            
+            if !scannedCode.isEmpty {
+                Text("Scanned: \(scannedCode)")
+            }
+        }
+        .sheet(isPresented: $isPresented) {
+            QRScannerSwiftUIView(
+                onSuccess: { code in
+                    scannedCode = code
+                    isPresented = false
+                },
+                onFailure: { error in
+                    print("Scan error: \(error)")
+                    isPresented = false
+                }
+            )
+        }
+    }
+}
+```
+
+### Advanced SwiftUI Usage with Controls
+
+```swift
+struct AdvancedQRScannerView: View {
+    @State private var scannedCode = ""
+    @State private var isScanning = true
+    @State private var torchActive = false
+    
+    var body: some View {
+        VStack {
+            QRScannerSwiftUIView(
+                configuration: .init(
+                    focusImagePadding: 12.0,
+                    animationDuration: 0.3,
+                    isBlurEffectEnabled: true
+                ),
+                isScanning: $isScanning,
+                torchActive: $torchActive,
+                onSuccess: { code in
+                    scannedCode = code
+                    isScanning = false
+                },
+                onFailure: { error in
+                    print("Error: \(error.localizedDescription)")
+                }
+            )
+            
+            HStack {
+                Button(isScanning ? "Pause" : "Resume") {
+                    isScanning.toggle()
+                }
+                
+                Button("Torch") {
+                    torchActive.toggle()
+                }
+            }
+            .padding()
+        }
+    }
+}
+```
+
+### SwiftUI Configuration Options
+
+#### Configuration Parameters
+- `focusImage`: Custom focus frame image
+- `focusImagePadding`: Focus frame padding (default: 8.0)
+- `animationDuration`: Animation duration (default: 0.5)
+- `isBlurEffectEnabled`: Enable blur effect (default: false)
+
+#### Binding Parameters
+- `isScanning`: Control scanning state
+- `torchActive`: Control torch state
+
+#### Callback Functions
+- `onSuccess`: Scan success callback
+- `onFailure`: Scan failure callback
+- `onTorchActiveChange`: Torch state change callback
+
+For a complete SwiftUI example, see [QRScannerSwiftUISample](https://github.com/mercari/QRScanner/tree/master/QRScannerSwiftUISample).
+
 ## UIKit Usage
 
 ### Basic UIKit Implementation
@@ -173,106 +273,6 @@ extension ViewController: QRScannerViewDelegate {
 |Customize|
 |-|
 |<img src="https://raw.githubusercontent.com/mercari/QRScanner/master/images/ib1.png" width="350">|
-
-## SwiftUI Usage
-
-### Basic SwiftUI Implementation
-
-```swift
-import SwiftUI
-import QRScanner
-import AVFoundation
-
-struct ContentView: View {
-    @State private var scannedCode = ""
-    @State private var isPresented = false
-    
-    var body: some View {
-        VStack {
-            Button("Start Scanning") {
-                isPresented = true
-            }
-            
-            if !scannedCode.isEmpty {
-                Text("Scanned: \(scannedCode)")
-            }
-        }
-        .sheet(isPresented: $isPresented) {
-            QRScannerSwiftUIView(
-                onSuccess: { code in
-                    scannedCode = code
-                    isPresented = false
-                },
-                onFailure: { error in
-                    print("Scan error: \(error)")
-                    isPresented = false
-                }
-            )
-        }
-    }
-}
-```
-
-### Advanced SwiftUI Usage with Controls
-
-```swift
-struct AdvancedQRScannerView: View {
-    @State private var scannedCode = ""
-    @State private var isScanning = true
-    @State private var torchActive = false
-    
-    var body: some View {
-        VStack {
-            QRScannerSwiftUIView(
-                configuration: .init(
-                    focusImagePadding: 12.0,
-                    animationDuration: 0.3,
-                    isBlurEffectEnabled: true
-                ),
-                isScanning: $isScanning,
-                torchActive: $torchActive,
-                onSuccess: { code in
-                    scannedCode = code
-                    isScanning = false
-                },
-                onFailure: { error in
-                    print("Error: \(error.localizedDescription)")
-                }
-            )
-            
-            HStack {
-                Button(isScanning ? "Pause" : "Resume") {
-                    isScanning.toggle()
-                }
-                
-                Button("Torch") {
-                    torchActive.toggle()
-                }
-            }
-            .padding()
-        }
-    }
-}
-```
-
-### SwiftUI Configuration Options
-
-#### Configuration Parameters
-- `focusImage`: Custom focus frame image
-- `focusImagePadding`: Focus frame padding (default: 8.0)
-- `animationDuration`: Animation duration (default: 0.5)
-- `isBlurEffectEnabled`: Enable blur effect (default: false)
-
-#### Binding Parameters
-- `isScanning`: Control scanning state
-- `torchActive`: Control torch state
-
-#### Callback Functions
-- `onSuccess`: Scan success callback
-- `onFailure`: Scan failure callback
-- `onTorchActiveChange`: Torch state change callback
-
-For a complete SwiftUI example, see [QRScannerSwiftUISample](https://github.com/mercari/QRScanner/tree/master/QRScannerSwiftUISample).
 
 ## Committers
 
