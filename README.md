@@ -1,23 +1,23 @@
 # QRScanner
-A simple QR Code scanner framework for iOS. Provides a similar scan effect to ios13+. Written in Swift.
+A modern QR Code scanner framework for iOS with comprehensive SwiftUI and UIKit support. Delivers a native iOS scanning experience with advanced customization options. Written in Swift.
 
 * [日本語のブログ](https://tech.mercari.com/entry/2019/12/12/094129)
 
-|iOS 13.0+| Use QRScanner in iOS 10.0+|
+|iPhone native camera|QRScanner implementation|
 |-|-|
 |<img src="https://raw.githubusercontent.com/mercari/QRScanner/master/images/ios13qr.gif" width="350">|<img src="https://raw.githubusercontent.com/mercari/QRScanner/master/images/qr.gif" width="350">|
 
 "QR Code" is a registered trademark of DENSO WAVE INCORPORATED
 
 ## Feature
-- Similar to iOS 13.0+ design
+- Similar to iPhone native camera design
 - Simple usage  <a href="https://github.com/mercari/QRScanner/blob/master/QRScannerSample/QRScannerSample/ViewController.swift" target="_blank">UIKit Sample</a> | <a href="https://github.com/mercari/QRScanner/tree/master/QRScannerSwiftUISample" target="_blank">SwiftUI Sample</a>
 - Support SwiftUI (iOS 14.0+)
 - Support from iOS 14.0+
 
 ## Development Requirements
 - iOS 14.0+
-- Swift: 5.7.1
+- Swift: 5.9
 - Xcode Version: 16.0+
 
 ## Installation
