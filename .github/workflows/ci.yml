@@ -12,14 +12,63 @@ jobs:
     runs-on: macOS-latest
     strategy:
       matrix:
-        destination: ['platform=iOS Simulator,OS=16.1,name=iPhone 14 Pro Max']
-        xcode: ['/Applications/Xcode_14.1.app/Contents/Developer']
+        destination: ['platform=iOS Simulator,OS=18.0,name=iPhone 16 Pro Max']
+        xcode: ['/Applications/Xcode_16.4.app/Contents/Developer']
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
-      - name: Run test
+        uses: actions/checkout@v4
+      - name: Run unit tests
         run: xcodebuild test -workspace QRScanner.xcworkspace -scheme UnitTests -destination "${destination}"
         env:
           destination: ${{ matrix.destination }}
           DEVELOPER_DIR: ${{ matrix.xcode }}
+
+  build-samples:
+    name: Build Sample Apps
+    runs-on: macOS-latest
+    strategy:
+      matrix:
+        destination: ['platform=iOS Simulator,OS=18.0,name=iPhone 16 Pro Max']
+        xcode: ['/Applications/Xcode_16.4.app/Contents/Developer']
+        scheme: ['QRScannerSample', 'QRScannerSwiftUISample']
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build ${{ matrix.scheme }}
+        run: xcodebuild build -workspace QRScanner.xcworkspace -scheme "${{ matrix.scheme }}" -destination "${destination}"
+        env:
+          destination: ${{ matrix.destination }}
+          DEVELOPER_DIR: ${{ matrix.xcode }}
+
+  swift-package-manager:
+    name: Swift Package Manager
+    runs-on: macOS-latest
+    strategy:
+      matrix:
+        xcode: ['/Applications/Xcode_16.4.app/Contents/Developer']
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build with SPM
+        run: swift build
+        env:
+          DEVELOPER_DIR: ${{ matrix.xcode }}
+
+  cocoapods:
+    name: CocoaPods Lint
+    runs-on: macOS-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.0
+      - name: Install CocoaPods
+        run: gem install cocoapods
+      - name: Lint podspec
+        run: pod lib lint --allow-warnings
