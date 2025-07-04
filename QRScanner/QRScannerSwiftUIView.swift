@@ -59,11 +59,11 @@ public struct QRScannerSwiftUIView: UIViewRepresentable {
         )
         qrScannerView.configure(delegate: context.coordinator, input: input)
         context.coordinator.qrScannerView = qrScannerView
-        
+
         if isScanning {
             qrScannerView.startRunning()
         }
-        
+
         return qrScannerView
     }
     
@@ -130,3 +130,4 @@ public struct QRScannerSwiftUIView: UIViewRepresentable {
         }
     }
 }
+
