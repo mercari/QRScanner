@@ -9,49 +9,67 @@ A modern QR Code scanner framework for iOS with comprehensive SwiftUI and UIKit 
 
 "QR Code" is a registered trademark of DENSO WAVE INCORPORATED
 
-## Feature
-- Similar to iPhone native camera design
-- Simple usage  <a href="https://github.com/mercari/QRScanner/blob/master/QRScannerSample/QRScannerSample/ViewController.swift" target="_blank">UIKit Sample</a> | <a href="https://github.com/mercari/QRScanner/tree/master/QRScannerSwiftUISample" target="_blank">SwiftUI Sample</a>
-- Support SwiftUI (iOS 14.0+)
-- Support from iOS 14.0+
+## Features
 
-## Development Requirements
-- iOS 14.0+
-- Swift: 5.9
-- Xcode Version: 16.0+
+- 🎯 **Native iOS Design** - Matches iPhone's built-in camera scanning experience
+- 🚀 **SwiftUI & UIKit Support** - Full compatibility with both modern and traditional iOS development
+- 📱 **iOS 14.0+** - Built for modern iOS with latest Swift features
+- ⚡ **Easy Integration** - Simple setup with comprehensive examples
+- 🎨 **Highly Customizable** - Extensive configuration options for focus frame, animations, and effects
+- 💡 **Production Ready** - Battle-tested in Mercari's production apps
+
+**Quick Start:** [SwiftUI Example](https://github.com/mercari/QRScanner/tree/master/QRScannerSwiftUISample) | [UIKit Example](https://github.com/mercari/QRScanner/tree/master/QRScannerSample)
+
+## Requirements
+
+- **iOS:** 14.0+
+- **Swift:** 5.9+
+- **Xcode:** 16.0+
 
 ## Installation
 
-### Swift Package Manager
+### Swift Package Manager (Recommended)
 
-Once you have your Swift package set up, adding QRScanner as a dependency is as easy as adding it to the dependencies value of your <code>Package.swift</code>.
+#### Via Xcode (Easiest)
+1. **File** → **Add Package Dependencies**
+2. Enter: `https://github.com/mercari/QRScanner.git`
+3. Select version and add to your target
+
+#### Via Package.swift
 ```swift
 dependencies: [
     .package(url: "https://github.com/mercari/QRScanner.git", .upToNextMajor(from: "1.9.0"))
 ]
 ```
 
-Or add it through Xcode:
-1. Go to **File** → **Add Package Dependencies**
-2. Enter the repository URL: `https://github.com/mercari/QRScanner.git`
-3. Select the version range and add to your target
-
-Write Import statement on your source file:
+#### Import
 ```swift
 import QRScanner
 ```
 
-## Usage
+## Quick Setup
 
-See [QRScannerSample](https://github.com/mercari/QRScanner/tree/master/QRScannerSample) for UIKit usage or [QRScannerSwiftUISample](https://github.com/mercari/QRScanner/tree/master/QRScannerSwiftUISample) for SwiftUI usage.
+### 1. Camera Permission
+Add camera usage description to your `Info.plist`:
 
-### Add `Privacy - Camera Usage Description` to Info.plist file
+```xml
+<key>NSCameraUsageDescription</key>
+<string>Camera access is required for QR code scanning</string>
+```
 
 <img src="https://raw.githubusercontent.com/mercari/QRScanner/master/images/privacy_camera.png" width="500">
 
+### 2. Choose Your Framework
+- **SwiftUI**: Modern declarative UI (recommended for new projects)
+- **UIKit**: Traditional imperative UI (for existing projects)
+
+Complete examples: [SwiftUI Sample](https://github.com/mercari/QRScanner/tree/master/QRScannerSwiftUISample) | [UIKit Sample](https://github.com/mercari/QRScanner/tree/master/QRScannerSample)
+
 ## SwiftUI Usage
 
-### Basic SwiftUI Implementation
+> 💡 **Recommended for new projects** - SwiftUI provides a more modern and concise API
+
+### Basic Implementation
 
 ```swift
 import SwiftUI
@@ -88,7 +106,7 @@ struct ContentView: View {
 }
 ```
 
-### Advanced SwiftUI Usage with Controls
+### Advanced Implementation
 
 ```swift
 struct AdvancedQRScannerView: View {
@@ -130,28 +148,33 @@ struct AdvancedQRScannerView: View {
 }
 ```
 
-### SwiftUI Configuration Options
+### Configuration Options
 
-#### Configuration Parameters
-- `focusImage`: Custom focus frame image
-- `focusImagePadding`: Focus frame padding (default: 8.0)
-- `animationDuration`: Animation duration (default: 0.5)
-- `isBlurEffectEnabled`: Enable blur effect (default: false)
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `focusImage` | `UIImage?` | `nil` | Custom focus frame image |
+| `focusImagePadding` | `CGFloat` | `8.0` | Focus frame padding |
+| `animationDuration` | `Double` | `0.5` | Animation duration |
+| `isBlurEffectEnabled` | `Bool` | `false` | Enable blur effect |
 
-#### Binding Parameters
-- `isScanning`: Control scanning state
-- `torchActive`: Control torch state
+| Binding | Type | Description |
+|---------|------|-------------|
+| `isScanning` | `Bool` | Control scanning state |
+| `torchActive` | `Bool` | Control torch state |
 
-#### Callback Functions
-- `onSuccess`: Scan success callback
-- `onFailure`: Scan failure callback
-- `onTorchActiveChange`: Torch state change callback
+| Callback | Description |
+|----------|-------------|
+| `onSuccess` | Called when QR code is successfully scanned |
+| `onFailure` | Called when scanning fails |
+| `onTorchActiveChange` | Called when torch state changes |
 
-For a complete SwiftUI example, see [QRScannerSwiftUISample](https://github.com/mercari/QRScanner/tree/master/QRScannerSwiftUISample).
+📘 **Complete Example:** [QRScannerSwiftUISample](https://github.com/mercari/QRScanner/tree/master/QRScannerSwiftUISample)
 
 ## UIKit Usage
 
-### Basic UIKit Implementation
+> 🔧 **For existing projects** - UIKit integration with full customization support
+
+### Basic Implementation
 
 ```swift
 import QRScanner
@@ -207,9 +230,7 @@ extension ViewController: QRScannerViewDelegate {
 }
 ```
 
-### UIKit Customization
-
-#### Source Code Way
+### Customization
 
 ```swift
 override func viewDidLoad() {
@@ -234,9 +255,9 @@ override func viewDidLoad() {
 |-|-|
 |<img src="https://raw.githubusercontent.com/mercari/QRScanner/master/images/ib2.png" width="350">|<img src="https://raw.githubusercontent.com/mercari/QRScanner/master/images/ib1.png" width="350">|
 
-### UIKit Add FlashButton
+### Adding Flash Control
 
-[FlashButtonSample](https://github.com/mercari/QRScanner/blob/master/QRScannerSample/QRScannerSample/FlashButton.swift)
+Example: [FlashButton.swift](https://github.com/mercari/QRScanner/blob/master/QRScannerSample/QRScannerSample/FlashButton.swift)
 
 ```swift
 final class ViewController: UIViewController {
@@ -260,19 +281,13 @@ extension ViewController: QRScannerViewDelegate {
 }
 ```
 
-### UIKit Add Blur Effect
-
-#### Source Code Way
+### Adding Blur Effect
 
 ```swift
-     qrScannerView.configure(delegate: self, input: .init(isBlurEffectEnabled: true))
+qrScannerView.configure(delegate: self, input: .init(isBlurEffectEnabled: true))
 ```
 
-#### Interface Builder Way
-
-|Customize|
-|-|
-|<img src="https://raw.githubusercontent.com/mercari/QRScanner/master/images/ib1.png" width="350">|
+📘 **Complete Example:** [QRScannerSample](https://github.com/mercari/QRScanner/tree/master/QRScannerSample)
 
 ## Committers
 
