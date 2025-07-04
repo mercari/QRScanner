@@ -38,7 +38,7 @@ A modern QR Code scanner framework for iOS with comprehensive SwiftUI and UIKit 
 #### Via Package.swift
 ```swift
 dependencies: [
-    .package(url: "https://github.com/mercari/QRScanner.git", .upToNextMajor(from: "1.9.0"))
+    .package(url: "https://github.com/mercari/QRScanner.git", .upToNextMajor(from: "2.0.0"))
 ]
 ```
 
