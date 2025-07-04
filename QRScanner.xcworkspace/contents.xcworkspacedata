@@ -48,4 +48,7 @@
          </FileRef>
       </Group>
    </Group>
+   <FileRef
+      location = "group:QRScannerSwiftUISample/QRScannerSwiftUISample.xcodeproj">
+   </FileRef>
 </Workspace>

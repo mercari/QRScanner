@@ -7,14 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		16A163ED235710040032684C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A163EC235710040032684C /* AppDelegate.swift */; };
-		16A163EF235710040032684C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A163EE235710040032684C /* ViewController.swift */; };
-		16A163F2235710040032684C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16A163F0235710040032684C /* Main.storyboard */; };
 		16A163F4235710050032684C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16A163F3235710050032684C /* Assets.xcassets */; };
 		16A163F7235710050032684C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16A163F5235710050032684C /* LaunchScreen.storyboard */; };
 		16A163FF235710580032684C /* QRScanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16A163FE235710580032684C /* QRScanner.framework */; };
 		16A16400235710580032684C /* QRScanner.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 16A163FE235710580032684C /* QRScanner.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		76598FBF237586CC0099593E /* FlashButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76598FBE237586CC0099593E /* FlashButton.swift */; };
+		16A164A2235710580032684C /* QRScannerSwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A164A0235710580032684C /* QRScannerSwiftUIApp.swift */; };
+		16A164A3235710580032684C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A164A1235710580032684C /* ContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -32,15 +30,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		16A163E9235710040032684C /* QRScannerSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QRScannerSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		16A163EC235710040032684C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		16A163EE235710040032684C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		16A163F1235710040032684C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		16A163E9235710040032684C /* QRScannerSwiftUISample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QRScannerSwiftUISample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16A163F3235710050032684C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		16A163F6235710050032684C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		16A163F8235710050032684C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		16A163FE235710580032684C /* QRScanner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = QRScanner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		76598FBE237586CC0099593E /* FlashButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashButton.swift; sourceTree = "<group>"; };
+		16A164A0235710580032684C /* QRScannerSwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerSwiftUIApp.swift; sourceTree = "<group>"; };
+		16A164A1235710580032684C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +55,7 @@
 			isa = PBXGroup;
 			children = (
 				16A163FE235710580032684C /* QRScanner.framework */,
-				16A163EB235710040032684C /* QRScannerSample */,
+				16A163EB235710040032684C /* QRScannerSwiftUISample */,
 				16A163EA235710040032684C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -67,31 +63,29 @@
 		16A163EA235710040032684C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				16A163E9235710040032684C /* QRScannerSample.app */,
+				16A163E9235710040032684C /* QRScannerSwiftUISample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		16A163EB235710040032684C /* QRScannerSample */ = {
+		16A163EB235710040032684C /* QRScannerSwiftUISample */ = {
 			isa = PBXGroup;
 			children = (
-				16A163EC235710040032684C /* AppDelegate.swift */,
-				16A163EE235710040032684C /* ViewController.swift */,
-				76598FBE237586CC0099593E /* FlashButton.swift */,
-				16A163F0235710040032684C /* Main.storyboard */,
+				16A164A0235710580032684C /* QRScannerSwiftUIApp.swift */,
+				16A164A1235710580032684C /* ContentView.swift */,
 				16A163F3235710050032684C /* Assets.xcassets */,
 				16A163F5235710050032684C /* LaunchScreen.storyboard */,
 				16A163F8235710050032684C /* Info.plist */,
 			);
-			path = QRScannerSample;
+			path = QRScannerSwiftUISample;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		16A163E8235710040032684C /* QRScannerSample */ = {
+		16A163E8235710040032684C /* QRScannerSwiftUISample */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 16A163FB235710050032684C /* Build configuration list for PBXNativeTarget "QRScannerSample" */;
+			buildConfigurationList = 16A163FB235710050032684C /* Build configuration list for PBXNativeTarget "QRScannerSwiftUISample" */;
 			buildPhases = (
 				16A163E5235710040032684C /* Sources */,
 				16A163E6235710040032684C /* Frameworks */,
@@ -102,9 +96,9 @@
 			);
 			dependencies = (
 			);
-			name = QRScannerSample;
-			productName = QRScannerSample;
-			productReference = 16A163E9235710040032684C /* QRScannerSample.app */;
+			name = QRScannerSwiftUISample;
+			productName = QRScannerSwiftUISample;
+			productReference = 16A163E9235710040032684C /* QRScannerSwiftUISample.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -122,7 +116,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 16A163E4235710040032684C /* Build configuration list for PBXProject "QRScannerSample" */;
+			buildConfigurationList = 16A163E4235710040032684C /* Build configuration list for PBXProject "QRScannerSwiftUISample" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -135,7 +129,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				16A163E8235710040032684C /* QRScannerSample */,
+				16A163E8235710040032684C /* QRScannerSwiftUISample */,
 			);
 		};
 /* End PBXProject section */
@@ -147,7 +141,6 @@
 			files = (
 				16A163F7235710050032684C /* LaunchScreen.storyboard in Resources */,
 				16A163F4235710050032684C /* Assets.xcassets in Resources */,
-				16A163F2235710040032684C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,23 +151,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				16A163EF235710040032684C /* ViewController.swift in Sources */,
-				16A163ED235710040032684C /* AppDelegate.swift in Sources */,
-				76598FBF237586CC0099593E /* FlashButton.swift in Sources */,
+				16A164A2235710580032684C /* QRScannerSwiftUIApp.swift in Sources */,
+				16A164A3235710580032684C /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		16A163F0235710040032684C /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				16A163F1235710040032684C /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		16A163F5235710050032684C /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -308,12 +292,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = K69VE4UMZN;
-				INFOPLIST_FILE = QRScannerSample/Info.plist;
+				INFOPLIST_FILE = QRScannerSwiftUISample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mercari.QRScannerSample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mercari.QRScannerSwiftUISample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -326,12 +310,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = K69VE4UMZN;
-				INFOPLIST_FILE = QRScannerSample/Info.plist;
+				INFOPLIST_FILE = QRScannerSwiftUISample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mercari.QRScannerSample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mercari.QRScannerSwiftUISample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -341,7 +325,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		16A163E4235710040032684C /* Build configuration list for PBXProject "QRScannerSample" */ = {
+		16A163E4235710040032684C /* Build configuration list for PBXProject "QRScannerSwiftUISample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				16A163F9235710050032684C /* Debug */,
@@ -350,7 +334,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		16A163FB235710050032684C /* Build configuration list for PBXNativeTarget "QRScannerSample" */ = {
+		16A163FB235710050032684C /* Build configuration list for PBXNativeTarget "QRScannerSwiftUISample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				16A163FC235710050032684C /* Debug */,

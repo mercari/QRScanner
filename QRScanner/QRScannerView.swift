@@ -126,6 +126,19 @@ public class QRScannerView: UIView {
         videoDevice.unlockForConfiguration()
     }
 
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        if previewLayer?.frame != self.bounds {
+            previewLayer?.frame = self.bounds
+            blurEffectView.frame = self.bounds
+
+            let width = self.bounds.width * 0.618
+            let x = self.bounds.width * 0.191
+            let y = self.bounds.height * 0.191
+            focusImageView.frame = CGRect(x: x, y: y, width: width, height: width)
+        }
+    }
+
     deinit {
         setTorchActive(isOn: false)
         focusImageView.removeFromSuperview()
