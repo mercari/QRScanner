@@ -21,6 +21,10 @@ let package = Package(
             path: "QRScanner",
             exclude: [
                 "Info.plist",
+                "PrivacyInfo.xcprivacy",
+            ],
+            resources: [
+                .copy("Images.xcassets"),
             ]
         ),
     ]

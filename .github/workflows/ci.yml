@@ -32,4 +32,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Build with SPM
-        run: swift build
+        run: xcodebuild build -scheme QRScanner -destination 'generic/platform=iOS Simulator'
