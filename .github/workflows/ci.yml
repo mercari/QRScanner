@@ -7,19 +7,29 @@ on:
     branches: [ master ]
 
 jobs:
-  test:
-    name: UnitTest
-    runs-on: macOS-latest
-    strategy:
-      matrix:
-        destination: ['platform=iOS Simulator,name=iPhone 16 Pro Max']
-
+  build:
+    name: Build
+    runs-on: macos-latest
+    timeout-minutes: 15
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Select latest Xcode
-        run: sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+      - uses: actions/checkout@v4
+      - name: Build framework
+        run: xcodebuild build -scheme QRScanner -destination 'generic/platform=iOS' CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+
+  test:
+    name: Test
+    runs-on: macos-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
       - name: Run unit tests
-        run: xcodebuild test -workspace QRScanner.xcworkspace -scheme UnitTests -destination "${destination}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
-        env:
-          destination: ${{ matrix.destination }}
+        run: xcodebuild test -workspace QRScanner.xcworkspace -scheme UnitTests -destination 'platform=iOS Simulator,name=iPhone 15 Pro' CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+
+  spm:
+    name: Swift Package Manager
+    runs-on: macos-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build with SPM
+        run: swift build
