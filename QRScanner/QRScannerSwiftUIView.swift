@@ -76,6 +76,11 @@ public struct QRScannerSwiftUIView: UIViewRepresentable {
         
         uiView.setTorchActive(isOn: torchActive)
     }
+
+    public static func dismantleUIView(_ uiView: QRScannerView, coordinator: Coordinator) {
+        // Tear down capture off the main thread before SwiftUI releases the view (avoids iOS 27 hang).
+        uiView.shutdown()
+    }
     
     public func makeCoordinator() -> Coordinator {
         Coordinator(
