@@ -82,25 +82,65 @@ public class QRScannerView: UIView {
     }
 
     public func startRunning() {
+        guard !isShutdown else { return }
         guard isAuthorized() else { return }
-        guard !session.isRunning else { return }
         videoDataOutputEnable = false
         metadataOutputEnable = true
-        metadataQueue.async { [weak self] in
-            self?.session.startRunning()
+        sessionQueue.async { [weak self] in
+            guard let self, !self.isShutdown else { return }
+            if self.previewLayer?.session == nil {
+                self.previewLayer?.session = self.session
+            }
+            guard !self.session.isRunning else { return }
+            self.session.startRunning()
         }
     }
 
     public func stopRunning() {
-        guard session.isRunning else { return }
-        videoDataQueue.async { [weak self] in
-            self?.session.stopRunning()
-        }
         metadataOutputEnable = false
         videoDataOutputEnable = false
+        sessionQueue.async { [weak self] in
+            guard let self, self.session.isRunning else { return }
+            self.session.stopRunning()
+        }
+    }
+
+    /// Tears down the capture session off the main thread.
+    /// Call before the view is deallocated so iOS 27 does not hang on main-thread session/preview dismantle.
+    public func shutdown() {
+        guard !isShutdown else { return }
+        isShutdown = true
+        metadataOutputEnable = false
+        videoDataOutputEnable = false
+        torchActiveObservation = nil
+
+        if Thread.isMainThread {
+            turnTorchOffIfNeeded()
+        } else {
+            DispatchQueue.main.async { [weak self] in
+                self?.turnTorchOffIfNeeded()
+            }
+        }
+
+        let session = self.session
+        sessionQueue.async { [weak self] in
+            if session.isRunning {
+                session.stopRunning()
+            }
+            // Detach preview off the main thread — setting session=nil can block for seconds on iOS 27.
+            let previewLayer = self?.previewLayer
+            previewLayer?.session = nil
+            session.inputs.forEach { session.removeInput($0) }
+            session.outputs.forEach { session.removeOutput($0) }
+            DispatchQueue.main.async {
+                previewLayer?.removeFromSuperlayer()
+                self?.previewLayer = nil
+            }
+        }
     }
 
     public func rescan() {
+        guard !isShutdown else { return }
         guard isAuthorized() else { return }
         if isBlurEffectEnabled {
             blurEffectView.isHidden = true
@@ -140,18 +180,27 @@ public class QRScannerView: UIView {
     }
 
     deinit {
-        setTorchActive(isOn: false)
-        focusImageView.removeFromSuperview()
-        qrCodeImageView.removeFromSuperview()
-        session.inputs.forEach { session.removeInput($0) }
-        session.outputs.forEach { session.removeOutput($0) }
-        removePreviewLayer()
+        // Avoid synchronous AVCaptureSession / preview mutations on the main thread (iOS 27 hang).
+        // Prefer explicit shutdown() from the presenting VC; this is a safety net only.
         torchActiveObservation = nil
+        guard !isShutdown else { return }
+        let session = self.session
+        let previewLayer = self.previewLayer
+        let sessionQueue = self.sessionQueue
+        sessionQueue.async {
+            if session.isRunning {
+                session.stopRunning()
+            }
+            previewLayer?.session = nil
+            session.inputs.forEach { session.removeInput($0) }
+            session.outputs.forEach { session.removeOutput($0) }
+        }
     }
 
     // MARK: - Private
 
     private weak var delegate: QRScannerViewDelegate?
+    private let sessionQueue = DispatchQueue(label: "session.qrreader.queue")
     private let metadataQueue = DispatchQueue(label: "metadata.session.qrreader.queue")
     private let videoDataQueue = DispatchQueue(label: "videoData.session.qrreader.queue")
     private let session = AVCaptureSession()
@@ -162,6 +211,7 @@ public class QRScannerView: UIView {
     private var videoDataOutput = AVCaptureVideoDataOutput()
     private var metadataOutputEnable = false
     private var videoDataOutputEnable = false
+    private var isShutdown = false
     private var torchActiveObservation: NSKeyValueObservation?
     private var qrCodeImage: UIImage?
     private lazy var blurEffectView: UIVisualEffectView = {
@@ -246,10 +296,21 @@ public class QRScannerView: UIView {
         if authorizationStatus() == .notDetermined {
             videoDataOutputEnable = false
             metadataOutputEnable = true
-            metadataQueue.async { [weak self] in
-                self?.session.startRunning()
+            sessionQueue.async { [weak self] in
+                guard let self, !self.isShutdown, !self.session.isRunning else { return }
+                self.session.startRunning()
             }
         }
+    }
+
+    private func turnTorchOffIfNeeded() {
+        guard let videoDevice = AVCaptureDevice.default(for: .video),
+              videoDevice.hasTorch, videoDevice.isTorchAvailable else {
+            return
+        }
+        try? videoDevice.lockForConfiguration()
+        videoDevice.torchMode = .off
+        videoDevice.unlockForConfiguration()
     }
 
     private func setupBlurEffectView() {
@@ -278,10 +339,6 @@ public class QRScannerView: UIView {
         layer.addSublayer(previewLayer)
 
         self.previewLayer = previewLayer
-    }
-
-    private func removePreviewLayer() {
-        previewLayer?.removeFromSuperlayer()
     }
 
     private func moveImageViews(qrCode: String, corners: [CGPoint]) {
